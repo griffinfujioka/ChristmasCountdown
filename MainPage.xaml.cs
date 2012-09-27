@@ -106,13 +106,13 @@ namespace ChristmasCountdown
             }
 
             // Display the results
-            this.todaysDateTxtBlock.Text = results.ToString();
+            //this.todaysDateTxtBlock.Text = results.ToString();
 
             DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
             TimeSpan ts = Christmas - DateTime.Now;
             int days = ts.Days;
             int hours = ts.Hours;
-            diffTxtBlock.Text = days + " days " + hours + "hours"; 
+            //diffTxtBlock.Text = days + " days " + hours + "hours"; 
         }
 
         
@@ -132,10 +132,10 @@ namespace ChristmasCountdown
 
         private void OnTick(object sender, object e)
         {
-            var christmas = new DateTime(DateTime.Today.Year, 12, 25,23,0,0);
+            var christmas = new DateTime(DateTime.Today.Year, 12, 25);
             var timeLeft = christmas - DateTime.Now;
 
-            Countdown.Text = string.Format("{0:D2} days:{1:D2} hours:{2:D2} minutes:{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
+            Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
         }
 
         #region Start the snow fall
