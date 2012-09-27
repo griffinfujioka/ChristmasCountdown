@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="ChristmasCountdown.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChristmasCountdown"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <!--ContentPanel - place additional content here-->
+        <Canvas x:Name="ContentPanel" Height="768">
+            <Canvas.Background>
+                <ImageBrush ImageSource="tree1.jpg"/>
+            </Canvas.Background>
+            <TextBlock Canvas.Left="630" TextWrapping="Wrap" Text="Christmas Countdown" Canvas.Top="114" Width="486" Height="157" FontSize="72" FontFamily="Lucida Console"/>
+            <TextBlock Canvas.Left="630" TextWrapping="Wrap" Text="Today's Date" Canvas.Top="378" FontSize="22"/>
+            <TextBlock x:Name="todaysDateTxtBlock" Canvas.Left="870" TextWrapping="Wrap" Canvas.Top="346" FontSize="20" Width="246" Height="295"/>
+            <TextBlock x:Name="diffTxtBlock" Canvas.Left="708" TextWrapping="Wrap" Canvas.Top="627" FontSize="20" Height="85" Width="321"/>
+        </Canvas>
+    </Grid>
+</Page>
