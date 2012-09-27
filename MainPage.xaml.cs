@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using Windows.Foundation;
 using System.Windows;
-using System.Windows.Input; 
+using System.Windows.Input;
+using System.Threading; 
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,6 +38,8 @@ namespace ChristmasCountdown
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private DispatcherTimer timer;
+
         #region On Navigated To
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
@@ -55,6 +58,10 @@ namespace ChristmasCountdown
         public MainPage()
         {
             InitializeComponent();
+
+            Loaded += OnLoaded; 
+
+
             random = new Random();
             this.StartFallingSnowAnimation();
 
@@ -110,6 +117,26 @@ namespace ChristmasCountdown
 
         
         #endregion 
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+
+            timer.Tick += new EventHandler<object>(OnTick);
+
+            timer.Start(); 
+        }
+
+        private void OnTick(object sender, object e)
+        {
+            var christmas = new DateTime(DateTime.Today.Year, 12, 25,23,0,0);
+            var timeLeft = christmas - DateTime.Now;
+
+            Countdown.Text = string.Format("{0:D2} days:{1:D2} hours:{2:D2} minutes:{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
+        }
 
         #region Start the snow fall
         private void StartFallingSnowAnimation()

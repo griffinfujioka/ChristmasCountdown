@@ -17,6 +17,7 @@
             <TextBlock Canvas.Left="630" TextWrapping="Wrap" Text="Today's Date" Canvas.Top="378" FontSize="22"/>
             <TextBlock x:Name="todaysDateTxtBlock" Canvas.Left="870" TextWrapping="Wrap" Canvas.Top="346" FontSize="20" Width="246" Height="295"/>
             <TextBlock x:Name="diffTxtBlock" Canvas.Left="708" TextWrapping="Wrap" Canvas.Top="627" FontSize="20" Height="85" Width="321"/>
+            <TextBlock x:Name="Countdown" Canvas.Left="444" TextWrapping="Wrap" Canvas.Top="276" Height="97" Width="725" FontSize="36" FontFamily="Global User Interface"/>
         </Canvas>
     </Grid>
 </Page>
