@@ -214,5 +214,10 @@ namespace ChristmasCountdown
             return result;
         }
         #endregion 
+
+        private void TextBlock_Tapped_1(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(AboutPage)); 
+        }
     }
 }
