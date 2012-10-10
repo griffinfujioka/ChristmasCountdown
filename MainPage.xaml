@@ -15,7 +15,7 @@
             </Canvas.Background>
             <TextBlock x:Name="untilTxtBlock" Canvas.Left="509" TextWrapping="Wrap" Text="Until Christmas!" Canvas.Top="566" Width="497" Height="95" FontSize="96" FontFamily="DilleniaUPC" HorizontalAlignment="Center" FontWeight="Bold"/>
             <TextBlock x:Name="Countdown" Canvas.Left="512" TextWrapping="Wrap" Canvas.Top="192" Height="369" Width="399" FontSize="72" FontFamily="DilleniaUPC" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-            <TextBlock Canvas.Left="660" TextWrapping="Wrap" Text="About" Canvas.Top="687" FontSize="24" Tapped="TextBlock_Tapped_1"/>
+            <TextBlock Canvas.Left="670" TextWrapping="Wrap" Text="About" Canvas.Top="687" FontSize="24" Tapped="TextBlock_Tapped_1"/>
         </Canvas>
     </Grid>
 </Page>

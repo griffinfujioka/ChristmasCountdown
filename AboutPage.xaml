@@ -41,8 +41,8 @@
             </TextBlock>
         </Grid>
         <StackPanel HorizontalAlignment="Left" Height="340" Margin="338,50,0,0" Grid.Row="1" VerticalAlignment="Top" Width="587">
-            <TextBlock TextWrapping="Wrap" Height="91" Text="Created by Griffin Fujioka and David Heyduck&#13;Both are students at Washington State University. &#13;Go Cougs!" FontSize="14"/>
-            <TextBlock TextWrapping="Wrap" Text="References: &#13;" FontSize="14"/>
+            <TextBlock TextWrapping="Wrap" Height="91" Text="Created by Griffin Fujioka and David Heyduck&#13;Both are students at Washington State University. &#13;Go Cougs!" FontSize="18"/>
+            <TextBlock TextWrapping="Wrap" Text="Snow adapted from: &#xA;" FontSize="16"/>
             <HyperlinkButton Content="Windows Phone Geek: Falling Snow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="59" Margin="11,0,205,0" NavigateUri="http://windowsphonegeek.com/articles/Implementing-Falling-Snow-animation-in-WP7"/>
 
         </StackPanel>
