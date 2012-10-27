@@ -6,7 +6,7 @@ using System.Text;
 using Windows.Foundation;
 using System.Windows;
 using System.Windows.Input;
-using System.Threading; 
+using System.Threading;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,9 +18,14 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;       // ellipse
 using Windows.UI.Xaml.Media.Animation;  // storyboard
 using Windows.UI.Xaml.Media;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml.Markup;
 using Windows.UI;           // colors
 using Windows.Globalization.DateTimeFormatting; // datetime formating
-
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;     /* tile API */
+using ChristmasCountdown.Common;
+using Windows.ApplicationModel.Activation;
 /*
  * I'm basically porting this app over from a Windows Phone 7 tutorial 
  * and adding some new features, namely a date difference calculation, 
@@ -36,7 +41,7 @@ namespace ChristmasCountdown
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : ChristmasCountdown.Common.LayoutAwarePage
     {
         private DispatcherTimer timer;
 
@@ -48,6 +53,7 @@ namespace ChristmasCountdown
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            base.OnNavigatedTo(e); 
         }
         #endregion 
         
@@ -59,8 +65,8 @@ namespace ChristmasCountdown
         {
             InitializeComponent();
 
-            Loaded += OnLoaded; 
 
+            Loaded += OnLoaded;
 
             random = new Random();
             this.StartFallingSnowAnimation();
@@ -120,6 +126,7 @@ namespace ChristmasCountdown
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+
             timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -128,6 +135,12 @@ namespace ChristmasCountdown
             timer.Tick += new EventHandler<object>(OnTick);
 
             timer.Start(); 
+        }
+
+       
+        private void SetTimeTextBlock(string str)
+        {
+            Countdown.Text = str;
         }
 
         private void OnTick(object sender, object e)
@@ -220,4 +233,5 @@ namespace ChristmasCountdown
             this.Frame.Navigate(typeof(AboutPage)); 
         }
     }
+
 }

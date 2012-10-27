@@ -18,10 +18,10 @@
       <VisualElements DisplayName="Christmas Countdown" Logo="Assets\Christmas Countdown Logo Icon.png" SmallLogo="Assets\Christmas Countdown Small Logo.png" Description="ChristmasCountdown" ForegroundText="light" BackgroundColor="#B22222">
         <DefaultTile ShowName="allLogos" WideLogo="Assets\Christmas Countdown Wide Logo.png" />
         <SplashScreen Image="Assets\Christmas Countdown Splash Screen.png" BackgroundColor="#B22222" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
       </VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>
