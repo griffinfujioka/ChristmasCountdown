@@ -357,7 +357,13 @@
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
     <MainPackageIdentityName>36726GriffinFujioka.BlueSoD</MainPackageIdentityName>
+    <MainPackageIdentityName>36726GriffinFujioka.ChristmasCountdownad-supported</MainPackageIdentityName>
     <MainPackageIdentityName>36726GriffinFujioka.EZBaseConverter</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/288494e0-8d29-459e-a44f-ee4431791685" />
+  <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/288494e0-8d29-459e-a44f-ee4431791685">
+    <PackageInfo>
+      <PackageArchitecture>neutral</PackageArchitecture>
+      <PackageMaxArchitectureVersion>1.0.0.0</PackageMaxArchitectureVersion>
+    </PackageInfo>
+  </PackageInfoList>
 </StoreAssociation>

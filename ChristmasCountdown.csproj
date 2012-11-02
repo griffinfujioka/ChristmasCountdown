@@ -149,6 +149,7 @@
     <Content Include="Assets\StoreLogo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Badge.png" />
     <Content Include="Common\ReadMe.txt" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
@@ -178,6 +179,11 @@
     <SDKReference Include="MSAdvertisingXaml, Version=6.1">
       <Name>MSAdvertisingXaml</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NotificationsExtensions">
+      <HintPath>..\..\..\Downloads\LiveTile\LiveTile\NotificationsExtensions\bin\Release\NotificationsExtensions.winmd</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

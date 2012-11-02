@@ -26,6 +26,8 @@ using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;     /* tile API */
 using ChristmasCountdown.Common;
 using Windows.ApplicationModel.Activation;
+using NotificationsExtensions.TileContent; /* live tile */
+using Windows.ApplicationModel.Background; /* background tasks */ 
 /*
  * I'm basically porting this app over from a Windows Phone 7 tutorial 
  * and adding some new features, namely a date difference calculation, 
@@ -38,6 +40,36 @@ using Windows.ApplicationModel.Activation;
 
 namespace ChristmasCountdown
 {
+
+    public sealed class MaintenanceBackgroundTask : IBackgroundTask
+    {
+        
+
+        public MaintenanceBackgroundTask()
+        {
+          
+        }
+
+        //Main Run method which is activated every 8 hours
+        async void IBackgroundTask.Run(IBackgroundTaskInstance taskInstance)
+        {
+            taskInstance.Canceled += taskInstance_Canceled;
+
+            // Because these methods are async, you must use a deferral 
+            // to wait for all of them to complete
+            BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
+
+            deferral.Complete();
+        }
+
+        // Cancel handler, called whenever the task is canceled
+        void taskInstance_Canceled(IBackgroundTaskInstance sender,
+                BackgroundTaskCancellationReason reason)
+        {
+            // Device is now on DC power, cancel processing of files 
+            
+        }
+    }
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -55,20 +87,28 @@ namespace ChristmasCountdown
         {
             base.OnNavigatedTo(e); 
         }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            updater.Clear(); 
+            base.OnNavigatedFrom(e);
+        }
         #endregion 
         
         private static Random random;
-
+        public static TileUpdater updater;
+        public static int tileScheduler; 
         #region Constructor
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-
+            RegisterMaintenanceBackgroundTask();
 
             Loaded += OnLoaded;
 
             random = new Random();
+            tileScheduler = 0; 
             this.StartFallingSnowAnimation();
 
             // We keep results in this variable
@@ -112,13 +152,28 @@ namespace ChristmasCountdown
             }
 
             // Display the results
-            //this.todaysDateTxtBlock.Text = results.ToString();
-
             DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
             TimeSpan ts = Christmas - DateTime.Now;
             int days = ts.Days;
             int hours = ts.Hours;
-            //diffTxtBlock.Text = days + " days " + hours + "hours"; 
+
+            var christmas = new DateTime(DateTime.Today.Year, 12, 25);
+            var timeLeft = christmas - DateTime.Now;
+
+            //ITileWideText03 
+            ITileWideText03 tileContent = TileContentFactory.CreateTileWideText03();
+            tileContent.TextHeadingWrap.Text = string.Format("{0:D2} days until Christmas!", timeLeft.Days); 
+
+            ITileSquareText04 squareContent = TileContentFactory.CreateTileSquareText04();
+            squareContent.TextBodyWrap.Text = string.Format("{0:D2} days until Christmas!", timeLeft.Days);  
+
+            tileContent.SquareContent = squareContent;
+
+            TileNotification notification = tileContent.CreateNotification();
+            updater = TileUpdateManager.CreateTileUpdaterForApplication();
+            updater.Update(notification);
+
+
         }
 
         
@@ -135,6 +190,8 @@ namespace ChristmasCountdown
             timer.Tick += new EventHandler<object>(OnTick);
 
             timer.Start(); 
+
+            
         }
 
        
@@ -145,10 +202,39 @@ namespace ChristmasCountdown
 
         private void OnTick(object sender, object e)
         {
+            /* These should be global variables */ 
             var christmas = new DateTime(DateTime.Today.Year, 12, 25);
             var timeLeft = christmas - DateTime.Now;
+            
 
-            Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
+            if (tileScheduler % 20 == 0)
+            {
+                updater.Clear();        /* Clear the tile, show the artwork */ 
+            }
+            else if (tileScheduler % 10 == 0)
+            {
+                ITileWideText03 tileContent = TileContentFactory.CreateTileWideText03();
+                tileContent.TextHeadingWrap.Text = string.Format("{0:D2} days until Christmas!", timeLeft.Days);
+
+                ITileSquareText04 squareContent = TileContentFactory.CreateTileSquareText04();
+                squareContent.TextBodyWrap.Text = string.Format("{0:D2} days until Christmas!", timeLeft.Days);
+
+                tileContent.SquareContent = squareContent;
+                TileNotification notification = tileContent.CreateNotification();
+                updater.Update(notification); 
+
+                
+            }
+            tileScheduler += 1; 
+        
+            
+
+            Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds);
+     
+
+           
+
+
         }
 
         #region Start the snow fall
@@ -231,6 +317,42 @@ namespace ChristmasCountdown
         private void TextBlock_Tapped_1(object sender, TappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AboutPage)); 
+        }
+
+        //Registering the maintenance trigger background task       
+        private bool RegisterMaintenanceBackgroundTask()
+        {
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            updater = TileUpdateManager.CreateTileUpdaterForApplication();
+            builder.Name = "Maintenance background task";
+            builder.TaskEntryPoint = "MaintenanceTask.MaintenaceBackgroundTask";
+            // Run every 8 hours if the device is on AC power 
+            IBackgroundTrigger trigger = new MaintenanceTrigger(15, false);
+            builder.SetTrigger(trigger);
+            IBackgroundTaskRegistration task = builder.Register();
+
+            var christmas = new DateTime(DateTime.Today.Year, 12, 25);
+            var timeLeft = christmas - DateTime.Now;
+
+            if (DateTime.Now.Hour % 30 < 15)
+            {
+                updater.Clear();
+            }
+            else
+            {
+                ITileWideText03 tileContent = TileContentFactory.CreateTileWideText03();
+                tileContent.TextHeadingWrap.Text = string.Format("{0:D2} days until Christmas!", timeLeft.Days);
+
+                ITileSquareText04 squareContent = TileContentFactory.CreateTileSquareText04();
+                squareContent.TextBodyWrap.Text = string.Format("{0:D2} days until Christmas!", timeLeft.Days);
+
+                tileContent.SquareContent = squareContent;
+                TileNotification notification = tileContent.CreateNotification();
+                updater.Update(notification);
+                
+            }
+
+            return true; 
         }
     }
 
