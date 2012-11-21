@@ -131,6 +131,7 @@
     <None Include="ChristmasCountdown_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Badge2.png" />
     <Content Include="Assets\Christmas Countdown Logo Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -179,6 +180,12 @@
     <SDKReference Include="MSAdvertisingXaml, Version=6.1">
       <Name>MSAdvertisingXaml</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BackgroundTasks\BackgroundTasks.csproj">
+      <Project>{79c9e362-a813-4d93-a1ff-30819c4f5250}</Project>
+      <Name>BackgroundTasks</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="NotificationsExtensions">
