@@ -15,11 +15,12 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;       // ellipse
-using Windows.UI.Xaml.Media.Animation;  // storyboard
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;                       // ellipse
+using Windows.UI.Xaml.Media.Animation;           // storyboard
 using Windows.UI;           // colors
-using Windows.Globalization.DateTimeFormatting; // datetime formating
+using Windows.Globalization.DateTimeFormatting; // datetime formatting
+using Windows.ApplicationModel.Background;      // background tasks 
+using Clock.WinRT; 
 
 /*
  * I'm basically porting this app over from a Windows Phone 7 tutorial 
@@ -36,8 +37,12 @@ namespace ChristmasCountdown
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public partial class MainPage : Page
     {
+        private const string TASKNAMEUSERPRESENT = "TileSchedulerTaskUserPresent";
+        private const string TASKNAMETIMER = "TileSchedulerTaskTimer";
+        private const string TASKENTRYPOINT = "Clock.WinRT.TileSchedulerTask";
+
         private DispatcherTimer timer;
 
         #region On Navigated To
@@ -48,6 +53,7 @@ namespace ChristmasCountdown
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
         }
         #endregion 
         
@@ -59,7 +65,7 @@ namespace ChristmasCountdown
         {
             InitializeComponent();
 
-            Loaded += OnLoaded; 
+            Loaded += OnLoaded;
 
 
             random = new Random();
@@ -114,9 +120,9 @@ namespace ChristmasCountdown
             int hours = ts.Hours;
             //diffTxtBlock.Text = days + " days " + hours + "hours"; 
         }
-
-        
         #endregion 
+
+       
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -127,7 +133,56 @@ namespace ChristmasCountdown
 
             timer.Tick += new EventHandler<object>(OnTick);
 
-            timer.Start(); 
+            try
+            {
+                timer.Start();
+                //UpdateClockText();
+                CreateClockTask();
+            }
+            catch (Exception ex)
+            {
+
+            } 
+        }
+
+
+        private static async void CreateClockTask()
+        {
+            var result = await BackgroundExecutionManager.RequestAccessAsync();
+            if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+                result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
+            {
+                ClockTileScheduler.CreateSchedule();
+
+                EnsureUserPresentTask();
+                EnsureTimerTask();
+            }
+        }
+
+        private static void EnsureUserPresentTask()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+                if (task.Value.Name == TASKNAMEUSERPRESENT)
+                    return;
+
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            builder.Name = TASKNAMETIMER;
+            builder.TaskEntryPoint = TASKENTRYPOINT;
+            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+            builder.Register();
+        }
+
+        private static void EnsureTimerTask()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+                if (task.Value.Name == TASKNAMETIMER)
+                    return;
+
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            builder.Name = TASKNAMETIMER;
+            builder.TaskEntryPoint = TASKENTRYPOINT;
+            builder.SetTrigger(new TimeTrigger(180, false));
+            builder.Register();
         }
 
         private void OnTick(object sender, object e)

@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using ChristmasCountdown.Common;
+
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
 namespace ChristmasCountdown
@@ -39,7 +41,7 @@ namespace ChristmasCountdown
         /// search results, and so forth.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -50,9 +52,21 @@ namespace ChristmasCountdown
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
+                //Associate the frame with a SuspensionManager key                                
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
                 if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // Load state from previously suspended application
+                    // Restore the saved session state only when appropriate
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (SuspensionManagerException)
+                    {
+                        //Something went wrong restoring state.
+                        //Assume there is no state and continue
+                    }
                 }
 
                 // Place the frame in the current Window
@@ -80,10 +94,10 @@ namespace ChristmasCountdown
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
     }
