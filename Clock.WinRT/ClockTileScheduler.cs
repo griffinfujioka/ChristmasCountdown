@@ -34,15 +34,15 @@
                                    </visual></tile>";*/ 
 
             const string xml = @"<tile><visual>
-                                        <binding template=""TileWideText09""><text id=""1"">{0}</text><text id=""2"">{1}</text><text id=""3""></text><text id=""4""></text><text id=""5""></text></binding>
-                                        <binding template=""TileSquareText03""><text id=""1"">{0}</text><text id=""2"">{1}</text><text id=""3""></text><text id=""4""></text><text id=""5""></text></binding>
+                                        <binding template=""TileSquareBlock""><text id=""1"">{0}</text><text id=""2"">days left!</text></binding>
+                                        <binding template=""TileWideText01""><text id=""1"">{0}</text><text id=""2"">days until Christmas!</text></binding>
                                 </visual></tile>";
 
             //var tileXmlNow = string.Format(xml, now.ToString(cultureInfo.DateTimeFormat.ShortTimePattern), now.ToString(cultureInfo.DateTimeFormat.LongDatePattern));
             // Here is where I'll change the code to countdown until Christmas. 
             var christmas = new DateTime(DateTime.Today.Year, 12, 25);
             var timeLeft = christmas - DateTime.Now;
-            var tileXmlCountdown = string.Format(xml, timeLeft.Days + " days until Christmas!", now.ToString(cultureInfo.DateTimeFormat.LongDatePattern)); 
+            var tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString()); 
             XmlDocument documentNow = new XmlDocument();
             //documentNow.LoadXml(tileXmlNow);
             documentNow.LoadXml(tileXmlCountdown);
@@ -57,7 +57,7 @@
                 try
                 {
                     //var tileXml = string.Format(xml, startPlanning.ToString(cultureInfo.DateTimeFormat.ShortTimePattern), startPlanning.ToString(cultureInfo.DateTimeFormat.LongDatePattern));
-                    var tileXml = string.Format(xml, timeLeft.Days + " days until Christmas!", now.ToString(cultureInfo.DateTimeFormat.LongDatePattern)); 
+                    var tileXml = string.Format(xml, timeLeft.Days.ToString());  
                     XmlDocument document = new XmlDocument();
                     document.LoadXml(tileXml);
 
