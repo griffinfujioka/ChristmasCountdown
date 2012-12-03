@@ -131,7 +131,9 @@
     <None Include="ChristmasCountdown_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Badge.png" />
+    <Content Include="Assets\Badge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Christmas Countdown Logo Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -172,8 +174,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Clock.WinRT, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Clock.WinRT">
       <HintPath>Clock.WinRT\bin\Release\Clock.WinRT.winmd</HintPath>
     </Reference>
   </ItemGroup>

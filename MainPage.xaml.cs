@@ -42,6 +42,7 @@ namespace ChristmasCountdown
         private const string TASKNAMEUSERPRESENT = "TileSchedulerTaskUserPresent";
         private const string TASKNAMETIMER = "TileSchedulerTaskTimer";
         private const string TASKENTRYPOINT = "Clock.WinRT.TileSchedulerTask";
+        public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
 
         private DispatcherTimer timer;
 
@@ -51,9 +52,29 @@ namespace ChristmasCountdown
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
+            DateTime TestDate = new DateTime(DateTime.Now.Year, 11, 15); 
+            int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
+            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */ 
+            #region Display pop up a message if it's Christmas day
+            if (DateTime.Now.Date == Christmas.Date)
+            {
+                #region Hide all countdown controls
+                untilTxtBlock.Visibility = Visibility.Collapsed;
+                Countdown.Visibility = Visibility.Collapsed;
+                #endregion 
+                // TODO: Print out a Merry Christmas message instead
+                CurrentYear = DateTime.Now.Year; 
+                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("Merry Christmas and Happy Holidays!\n\nThank you for your support!");
+                await dialog.ShowAsync();
+            }
+            else if(DateTime.Now.Date > Christmas.Date && DateTime.Now.Date < NewYear.Date)
+            {
+                // Cover the cases Dec. 26th - 31st. Update Christmas to Christmas day of next year
+                Christmas = new DateTime(NewYear.Year, 12, 25); 
+            }
+            #endregion
         }
         #endregion 
         
@@ -114,7 +135,7 @@ namespace ChristmasCountdown
             // Display the results
             //this.todaysDateTxtBlock.Text = results.ToString();
 
-            DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
+            
             TimeSpan ts = Christmas - DateTime.Now;
             int days = ts.Days;
             int hours = ts.Hours;
@@ -143,6 +164,8 @@ namespace ChristmasCountdown
             {
 
             } 
+
+            // If today is Christmas, behave accordingly!! 
         }
 
 
@@ -187,8 +210,7 @@ namespace ChristmasCountdown
 
         private void OnTick(object sender, object e)
         {
-            var christmas = new DateTime(DateTime.Today.Year, 12, 25);
-            var timeLeft = christmas - DateTime.Now;
+            var timeLeft = Christmas - DateTime.Now;
 
             Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
         }
