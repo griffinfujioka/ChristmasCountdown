@@ -1,4 +1,6 @@
-﻿namespace Clock.WinRT
+﻿
+
+namespace Clock.WinRT
 {
     using System;
     using System.Diagnostics;
@@ -33,16 +35,32 @@
                                         <binding template=""TileWideText01""><text id=""1"">{0}</text><text id=""2"">{1}</text><text id=""3""></text><text id=""4""></text><text id=""5""></text></binding>
                                    </visual></tile>";*/ 
 
+            // This is XML that will be displayed on Chistmas day
+            const string Christmas_xml = @"<tile><visual>
+                                        <binding template=""TileSquareBlock""><text id=""1"">{0}</text><text id=""2"">Merry Christmas!</text></binding>
+                                        <binding template=""TileWideText01""><text id=""1"">Merry Christmas!</text><text id=""2"">{0}</text></binding>
+                                </visual></tile>";
+
+            // This is XML that will be displayed on all other days 
             const string xml = @"<tile><visual>
                                         <binding template=""TileSquareBlock""><text id=""1"">{0}</text><text id=""2"">days left!</text></binding>
                                         <binding template=""TileWideText01""><text id=""1"">{0}</text><text id=""2"">days until Christmas!</text></binding>
                                 </visual></tile>";
 
+
             //var tileXmlNow = string.Format(xml, now.ToString(cultureInfo.DateTimeFormat.ShortTimePattern), now.ToString(cultureInfo.DateTimeFormat.LongDatePattern));
             // Here is where I'll change the code to countdown until Christmas. 
             var christmas = new DateTime(DateTime.Today.Year, 12, 25);
             var timeLeft = christmas - DateTime.Now;
-            var tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString()); 
+            var tileXmlCountdown = ""; 
+            if (DateTime.Now.Date == christmas.Date)
+            {
+                tileXmlCountdown = string.Format(Christmas_xml, "");
+            }
+            else
+            {
+                tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
+            }
             XmlDocument documentNow = new XmlDocument();
             //documentNow.LoadXml(tileXmlNow);
             documentNow.LoadXml(tileXmlCountdown);

@@ -42,7 +42,7 @@ namespace ChristmasCountdown
         private const string TASKNAMEUSERPRESENT = "TileSchedulerTaskUserPresent";
         private const string TASKNAMETIMER = "TileSchedulerTaskTimer";
         private const string TASKENTRYPOINT = "Clock.WinRT.TileSchedulerTask";
-        public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
+        public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 8);
 
         private DispatcherTimer timer;
 
@@ -57,24 +57,7 @@ namespace ChristmasCountdown
             DateTime TestDate = new DateTime(DateTime.Now.Year, 11, 15); 
             int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
             DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */ 
-            #region Display pop up a message if it's Christmas day
-            if (DateTime.Now.Date == Christmas.Date)
-            {
-                #region Hide all countdown controls
-                untilTxtBlock.Visibility = Visibility.Collapsed;
-                Countdown.Visibility = Visibility.Collapsed;
-                #endregion 
-                // TODO: Print out a Merry Christmas message instead
-                CurrentYear = DateTime.Now.Year; 
-                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("Merry Christmas and Happy Holidays!\n\nThank you for your support!");
-                await dialog.ShowAsync();
-            }
-            else if(DateTime.Now.Date > Christmas.Date && DateTime.Now.Date < NewYear.Date)
-            {
-                // Cover the cases Dec. 26th - 31st. Update Christmas to Christmas day of next year
-                Christmas = new DateTime(NewYear.Year, 12, 25); 
-            }
-            #endregion
+            
         }
         #endregion 
         
@@ -145,8 +128,12 @@ namespace ChristmasCountdown
 
        
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private async void OnLoaded(object sender, RoutedEventArgs e)
         {
+            DateTime TestDate = new DateTime(DateTime.Now.Year, 11, 15);
+            int CurrentYear = DateTime.Now.Year;                /* Get Current Year */
+            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */ 
+
             timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -166,6 +153,26 @@ namespace ChristmasCountdown
             } 
 
             // If today is Christmas, behave accordingly!! 
+            #region Display pop up a message if it's Christmas day
+            if (DateTime.Now.Date == Christmas.Date)
+            {
+                App.isChristmas = true;
+                #region Hide all countdown controls
+                untilTxtBlock.Visibility = Visibility.Collapsed;
+                Countdown.Visibility = Visibility.Collapsed;
+                #endregion
+                // TODO: Print out a Merry Christmas message instead
+                CurrentYear = DateTime.Now.Year;
+                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("Merry Christmas and Happy Holidays!\n\nThank you for your support!");
+                await dialog.ShowAsync();
+            }
+            else if (DateTime.Now.Date > Christmas.Date && DateTime.Now.Date < NewYear.Date)
+            {
+                // Cover the cases Dec. 26th - 31st. Update Christmas to Christmas day of next year
+                Christmas = new DateTime(NewYear.Year, 12, 25);
+                App.isChristmas = false;
+            }
+            #endregion
         }
 
 
