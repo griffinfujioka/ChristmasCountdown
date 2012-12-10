@@ -34,15 +34,13 @@ using Clock.WinRT;
 
 namespace ChristmasCountdown
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public partial class MainPage : Page
     {
         private const string TASKNAMEUSERPRESENT = "TileSchedulerTaskUserPresent";
         private const string TASKNAMETIMER = "TileSchedulerTaskTimer";
         private const string TASKENTRYPOINT = "Clock.WinRT.TileSchedulerTask";
-        public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 8);
+        public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
 
         private DispatcherTimer timer;
 
@@ -52,9 +50,9 @@ namespace ChristmasCountdown
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DateTime TestDate = new DateTime(DateTime.Now.Year, 11, 15); 
+             
             int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
             DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */ 
             
@@ -161,7 +159,9 @@ namespace ChristmasCountdown
                 untilTxtBlock.Visibility = Visibility.Collapsed;
                 Countdown.Visibility = Visibility.Collapsed;
                 #endregion
-                // TODO: Print out a Merry Christmas message instead
+                // Print out a Merry Christmas message instead
+                merryChristmasTxtBlock.Visibility = Visibility.Visible;
+                treeImg.Visibility = Visibility.Visible; 
                 CurrentYear = DateTime.Now.Year;
                 Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("Merry Christmas and Happy Holidays!\n\nThank you for your support!");
                 await dialog.ShowAsync();

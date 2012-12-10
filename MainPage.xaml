@@ -13,9 +13,11 @@
             <Canvas.Background>
                 <ImageBrush ImageSource="tree1.jpg"/>
             </Canvas.Background>
+            <TextBlock x:Name="merryChristmasTxtBlock" TextWrapping="Wrap" Text="Merry Christmas!" Width="513" Height="100" FontSize="96" FontFamily="DilleniaUPC" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="467" Canvas.Top="92" Visibility="Collapsed"/>
             <TextBlock x:Name="untilTxtBlock" Canvas.Left="509" TextWrapping="Wrap" Text="Until Christmas!" Canvas.Top="566" Width="497" Height="95" FontSize="96" FontFamily="DilleniaUPC" HorizontalAlignment="Center" FontWeight="Bold"/>
             <TextBlock x:Name="Countdown" Canvas.Left="512" TextWrapping="Wrap" Canvas.Top="192" Height="369" Width="399" FontSize="72" FontFamily="DilleniaUPC" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Canvas.Left="670" TextWrapping="Wrap" Text="About" Canvas.Top="687" FontSize="24" Tapped="TextBlock_Tapped_1"/>
+            <Image x:Name="treeImg" Height="690" Width="602" Source="Assets/Christmas Countdown Splash Screen.png" Canvas.Left="391" Canvas.Top="78" Visibility="Collapsed"/>
         </Canvas>
     </Grid>
 </Page>
