@@ -10,6 +10,8 @@ namespace Clock.WinRT
     using Windows.System.UserProfile;
     using Windows.UI.Notifications;
 
+    
+
     public static class ClockTileScheduler
     {
         public static void CreateSchedule()
@@ -33,20 +35,48 @@ namespace Clock.WinRT
                 updateTime = plannedUpdated.Select(x => x.DeliveryTime.DateTime).Union(new [] { updateTime }).Max(); 
 
             // Here is where I define a number of different live tiles 
-            // This is XML that will be displayed on Chistmas day
+            // This is the special tile that will display on Christmas day 
             const string Christmas_xml = @"<tile><visual>
                                         <binding template=""TileSquareText04""><text id=""1"">Merry Christmas!</text></binding>
                                         <binding template=""TileWideText03""><text id=""1"">Merry Christmas!</text></binding>
                                 </visual></tile>";
 
-            // This is XML that will be displayed on all other days 
+            // Tile 1: XX days until Christmas!
             const string xml = @"<tile><visual>
                                         <binding template=""TileSquareBlock""><text id=""1"">{0}</text><text id=""2"">days left!</text></binding>
                                         <binding template=""TileWideText01""><text id=""1"">{0}</text><text id=""2"">days until Christmas!</text></binding>
                                 </visual></tile>";
 
 
-            
+            // Tile 2: XX days, YY hours until Christmas! 
+            const string xml_2 = @"<tile><visual>
+                                        <binding template=""TileSquareText01"">
+                                            <text id=""1"">{0}</text>
+                                            <text id=""2"">{1}</text>
+                                            <text id=""3"">{2}</text>
+                                        </binding>
+                                        <binding template=""TileWideText05"">
+                                            <text id=""1"">{0}</text>
+                                            <text id=""2"">{1}</text>
+                                            <text id=""3"">{2}</text>
+                                        </binding>
+                                </visual></tile>"; 
+
+            // Tile 3: XX days, YY hours, ZZ minutes until Christmas!
+            const string xml_3 = @"<tile><visual>
+                                        <binding template=""TileSquareText01"">
+                                            <text id=""1"">{0}</text>
+                                            <text id=""2"">{1}</text>
+                                            <text id=""3"">{2}</text>
+                                            <text id=""4"">until Christmas!</text>
+                                        </binding>
+                                        <binding template=""TileWideText05"">
+                                            <text id=""1"">{0}</text>
+                                            <text id=""2"">{1}</text>
+                                            <text id=""3"">{2}</text>
+                                            <text id=""4"">until Christmas!</text>
+                                        </binding>
+                                </visual></tile>"; 
            
             DateTime christmas = new DateTime(DateTime.Today.Year, 12, 25);
             if (DateTime.Now.Date > christmas.Date && DateTime.Now.Date < NewYear.Date)
@@ -61,7 +91,13 @@ namespace Clock.WinRT
             }
             else
             {
-                tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
+                //tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
+
+                //tileXmlCountdown = string.Format(xml_2, timeLeft.Days.ToString() + " days,", timeLeft.Hours.ToString() + " hours", "until Christmas!");
+
+                tileXmlCountdown = string.Format(xml_3, timeLeft.Days.ToString() + " days,", timeLeft.Hours.ToString() + " hours", timeLeft.Minutes.ToString() + " minutes");
+            
+                
             }
             XmlDocument documentNow = new XmlDocument();
             documentNow.LoadXml(tileXmlCountdown);
@@ -83,7 +119,7 @@ namespace Clock.WinRT
                     }
                     else
                     {
-                        tileXml = string.Format(xml, timeLeft.Days.ToString());
+                        tileXml = string.Format(xml_3, timeLeft.Days.ToString());
                     }
                     XmlDocument document = new XmlDocument();
                     document.LoadXml(tileXml);

@@ -187,9 +187,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Clock.WinRT">
-      <HintPath>Clock.WinRT\bin\Release\Clock.WinRT.winmd</HintPath>
-    </Reference>
+    <ProjectReference Include="Clock.WinRT\Clock.WinRT.csproj">
+      <Project>{846f7825-d5d0-40ac-8f44-f7b3656d4f0a}</Project>
+      <Name>Clock.WinRT</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

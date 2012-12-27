@@ -25,7 +25,8 @@ namespace ChristmasCountdown
     /// </summary>
     sealed partial class App : Application
     {
-        public static bool isChristmas; 
+        public static bool isChristmas;
+        public static int Live_Tile_Style = 1; 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
