@@ -37,6 +37,22 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="Settings" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <!-- Settings page content-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
+        <ComboBox x:Name="backgroundColorComboBox" HorizontalAlignment="Left" Margin="40,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="238">
+            <TextBlock Text="Background color"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Red" Margin="0,0,20,0"/>
+                <Image x:Name="RedImage" Height="30" Width="30" Source="Assets/Red.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </ComboBox>
+
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

@@ -8,11 +8,11 @@
     mc:Ignorable="d">
 
     <Page.TopAppBar>
-        <AppBar x:Name="TopAppBar" Padding="0,0,0,0" AutomationProperties.Name="Top App Bar" IsSticky="True" IsOpen="False"  Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <AppBar x:Name="TopAppBar" Padding="0,0,0,0" AutomationProperties.Name="Top App Bar" IsSticky="True" IsOpen="False"  Background="White">
             <Grid>
                 <StackPanel x:Name="TopLeftPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button x:Name="aboutBtn" Content="About" Margin="8,0,8,0" BorderThickness="0" Click="aboutBtn_Click_1"/>
-                    <Button x:Name="settingsBtn" Content="Settings" Margin="8,0,8,0" BorderThickness="0" Click="settingsBtn_Click_1"/>
+                    <Button x:Name="aboutBtn" Content="About" Margin="8,0,8,0" BorderThickness="0" Click="aboutBtn_Click_1" Foreground="Black"/>
+                    <Button x:Name="settingsBtn" Content="Settings" Margin="8,0,8,0" BorderThickness="0" Click="settingsBtn_Click_1" Foreground="Black"/>
                 </StackPanel>
             </Grid>
         </AppBar>

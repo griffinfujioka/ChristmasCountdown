@@ -31,19 +31,20 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.RowSpan="2" Orientation="Horizontal">
             <Button x:Name="backButton" Click="backButton_Click_1" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Text="About" RenderTransformOrigin="0.5,0.5" Height="49">
                 <TextBlock.RenderTransform>
                     <CompositeTransform SkewX="2.726" TranslateX="-1.048" TranslateY="8"/>
                 </TextBlock.RenderTransform>
             </TextBlock>
+            </StackPanel>
         </Grid>
-        <StackPanel HorizontalAlignment="Left" Height="340" Margin="338,50,0,0" Grid.Row="1" VerticalAlignment="Top" Width="587">
-            <TextBlock TextWrapping="Wrap" Height="91" Text="Created by Griffin Fujioka and David Heyduck&#13;Both are students at Washington State University. &#13;Go Cougs!" FontSize="18"/>
-            <TextBlock TextWrapping="Wrap" Text="Snow adapted from: &#xA;" FontSize="16"/>
-            <HyperlinkButton Content="Windows Phone Geek: Falling Snow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="59" Margin="11,0,205,0" NavigateUri="http://windowsphonegeek.com/articles/Implementing-Falling-Snow-animation-in-WP7"/>
+        <StackPanel HorizontalAlignment="Left" Height="340" Margin="125,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="587">
+            <TextBlock TextWrapping="Wrap" Height="91" Text="Created by Griffin Fujioka and David Heyduck&#13;Both are students at Washington State University. &#13;Go Cougs!" HorizontalAlignment="Left" FontSize="18"/>
+            <TextBlock TextWrapping="Wrap" Text="Snow adapted from: &#xA;" FontSize="16" HorizontalAlignment="Left"/>
+            <HyperlinkButton Content="Windows Phone Geek: Falling Snow" HorizontalAlignment="Left" Height="59" Margin="11,0,205,0" NavigateUri="http://windowsphonegeek.com/articles/Implementing-Falling-Snow-animation-in-WP7"/>
 
         </StackPanel>
 

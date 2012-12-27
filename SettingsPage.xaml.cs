@@ -24,6 +24,7 @@ namespace ChristmasCountdown
         public SettingsPage()
         {
             this.InitializeComponent();
+            backgroundColorComboBox.SelectedIndex = 0; 
         }
 
         /// <summary>
@@ -47,6 +48,11 @@ namespace ChristmasCountdown
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            backgroundColorComboBox.SelectedIndex = 0; 
         }
     }
 }

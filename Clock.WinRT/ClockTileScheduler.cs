@@ -14,6 +14,9 @@ namespace Clock.WinRT
     {
         public static void CreateSchedule()
         {
+            int CurrentYear = DateTime.Now.Year;                // Current year
+            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       // January 1st of the next year
+
             var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication();
             var plannedUpdated = tileUpdater.GetScheduledTileNotifications();
 
@@ -45,7 +48,11 @@ namespace Clock.WinRT
 
             
            
-            var christmas = new DateTime(DateTime.Today.Year, 12, 25);
+            DateTime christmas = new DateTime(DateTime.Today.Year, 12, 25);
+            if (DateTime.Now.Date > christmas.Date && DateTime.Now.Date < NewYear.Date)
+            {
+                christmas = new DateTime(NewYear.Year, 12, 25);
+            }
             var timeLeft = christmas - DateTime.Now;
             var tileXmlCountdown = ""; 
             if (DateTime.Now.Date == christmas.Date)
