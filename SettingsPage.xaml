@@ -11,9 +11,6 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
     </Page.Resources>
 
     <!--
@@ -43,9 +40,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
         </Grid>
-        <ComboBox x:Name="backgroundColorComboBox" HorizontalAlignment="Left" Margin="40,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="238">
+        
+        <ComboBox x:Name="backgroundColorComboBox" HorizontalAlignment="Left" Margin="40,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="238" SelectionChanged="backgroundColorComboBox_SelectionChanged_1">
             <TextBlock Text="Background color"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Red" Margin="0,0,20,0"/>

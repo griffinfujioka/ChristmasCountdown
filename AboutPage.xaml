@@ -24,10 +24,12 @@
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Back button and page title -->
+        <!-- Row 0: Back button and page title -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -41,13 +43,59 @@
             </TextBlock>
             </StackPanel>
         </Grid>
-        <StackPanel HorizontalAlignment="Left" Height="340" Margin="125,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="587">
+        
+        <!-- Row 1: Our message and references -->
+        <StackPanel HorizontalAlignment="Left" Height="217" Margin="125,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="587">
             <TextBlock TextWrapping="Wrap" Height="91" Text="Created by Griffin Fujioka and David Heyduck&#13;Both are students at Washington State University. &#13;Go Cougs!" HorizontalAlignment="Left" FontSize="18"/>
             <TextBlock TextWrapping="Wrap" Text="Snow adapted from: &#xA;" FontSize="16" HorizontalAlignment="Left"/>
             <HyperlinkButton Content="Windows Phone Geek: Falling Snow" HorizontalAlignment="Left" Height="59" Margin="11,0,205,0" NavigateUri="http://windowsphonegeek.com/articles/Implementing-Falling-Snow-animation-in-WP7"/>
-
         </StackPanel>
+        
+        <!-- Row 2: Check out our other apps! -->
+        <TextBlock Text="Check out our other apps!" Grid.Row="2" FontSize="36" FontFamily="Harlow Solid Italic" Margin="53,7,-28,331" Grid.RowSpan="2"/>
 
+        
+        <!-- Row 3: Our other apps -->
+        <ScrollViewer Grid.Row="3" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Image x:Name="baseConverterImage" Margin="22,40,22,40" Height="150" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        
+            
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

@@ -8,19 +8,19 @@
     mc:Ignorable="d">
 
     <Page.TopAppBar>
-        <AppBar x:Name="TopAppBar" Padding="0,0,0,0" AutomationProperties.Name="Top App Bar" IsSticky="True" IsOpen="False"  Background="White">
+        <AppBar x:Name="TopAppBar" Padding="0,0,0,0" AutomationProperties.Name="Top App Bar" IsSticky="True" IsOpen="True"  Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
             <Grid>
                 <StackPanel x:Name="TopLeftPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button x:Name="aboutBtn" Content="About" Margin="8,0,8,0" BorderThickness="0" Click="aboutBtn_Click_1" Foreground="Black"/>
-                    <Button x:Name="settingsBtn" Content="Settings" Margin="8,0,8,0" BorderThickness="0" Click="settingsBtn_Click_1" Foreground="Black"/>
+                    <Button x:Name="aboutBtn" Content="About" Margin="8,0,8,0" BorderThickness="0" Click="aboutBtn_Click_1" Foreground="White"/>
+                    <!--<Button x:Name="settingsBtn" Content="Settings" Margin="8,0,8,0" BorderThickness="0" Click="settingsBtn_Click_1" Foreground="White"/> -->
                 </StackPanel>
             </Grid>
         </AppBar>
     </Page.TopAppBar>
     
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="MainPageGrid" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <!--ContentPanel - place additional content here-->
-        <Canvas x:Name="ContentPanel" Height="768">
+        <Canvas x:Name="ContentPanel" Height="1200">
             <Canvas.Background>
                 <ImageBrush ImageSource="tree1.jpg"/>
             </Canvas.Background>
@@ -28,7 +28,7 @@
             <TextBlock x:Name="untilTxtBlock" Canvas.Left="509" TextWrapping="Wrap" Text="Until Christmas!" Canvas.Top="566" Width="497" Height="95" FontSize="96" FontFamily="DilleniaUPC" HorizontalAlignment="Center" FontWeight="Bold"/>
             <TextBlock x:Name="Countdown" Canvas.Left="512" TextWrapping="Wrap" Canvas.Top="192" Height="369" Width="399" FontSize="72" FontFamily="DilleniaUPC" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
             
-            <Image x:Name="treeImg" Height="690" Width="602" Source="Assets/Christmas Countdown Splash Screen.png" Canvas.Left="391" Canvas.Top="78" Visibility="Collapsed"/>
+            <Image x:Name="treeImg" Height="Auto" Width="Auto" Source="Assets/Christmas Countdown Splash Screen.png" Canvas.Left="391" Canvas.Top="78" Visibility="Collapsed"/>
         </Canvas>
     </Grid>
 </Page>

@@ -312,5 +312,20 @@ namespace ChristmasCountdown
             this.Frame.Navigate(typeof(SettingsPage));
         }
         #endregion
+
+        #region Change background color 
+        public void ChangeColor(int color)
+        {
+            switch (color)
+            {
+                case 0: break;
+                case 1: 
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 166));
+                    untilTxtBlock.Visibility = Visibility.Collapsed; 
+                    break; 
+                default: break; 
+            }
+        }
+        #endregion 
     }
 }

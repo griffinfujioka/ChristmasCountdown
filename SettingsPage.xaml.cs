@@ -54,5 +54,18 @@ namespace ChristmasCountdown
         {
             backgroundColorComboBox.SelectedIndex = 0; 
         }
+
+        private void backgroundColorComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            MainPage mainpage = new MainPage(); 
+            switch (backgroundColorComboBox.SelectedIndex)
+            {
+                case 0: break;
+                case 1: 
+                    mainpage.ChangeColor(backgroundColorComboBox.SelectedIndex);
+                    break; 
+                default: break; 
+            }
+        }
     }
 }
