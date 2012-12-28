@@ -43,6 +43,7 @@ namespace ChristmasCountdown
         public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
 
         private DispatcherTimer timer;
+        private static Random random;
 
         #region On Navigated To
         /// <summary>
@@ -54,13 +55,16 @@ namespace ChristmasCountdown
         {
              
             int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
-            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */ 
+            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */
+
+            if (App.showAppBar)
+                TopAppBar.IsOpen = true;
+            else
+                TopAppBar.IsOpen = false; 
             
         }
         #endregion 
         
-        private static Random random;
-
         #region Constructor
         // Constructor
         public MainPage()
@@ -123,9 +127,8 @@ namespace ChristmasCountdown
             //diffTxtBlock.Text = days + " days " + hours + "hours"; 
         }
         #endregion 
-
        
-
+        #region OnLoaded
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             DateTime TestDate = new DateTime(DateTime.Now.Year, 11, 15);
@@ -151,7 +154,7 @@ namespace ChristmasCountdown
             } 
 
             // If today is Christmas, behave accordingly!! 
-            #region Display pop up a message if it's Christmas day
+        #region Display pop up a message if it's Christmas day
             if (DateTime.Now.Date == Christmas.Date)
             {
                 App.isChristmas = true;
@@ -173,9 +176,36 @@ namespace ChristmasCountdown
                 App.isChristmas = false;
             }
             #endregion
+
+        #region Set page background using App.Background_Color
+            switch (App.Background_Color)
+            {
+                case 0: break;
+                case 1:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 0,0,0));    // Black
+                    break;
+                case 2:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 220, 20, 60));    // Red 
+                    break;
+                case 3:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 245,245,245));    // White
+                    untilTxtBlock.Foreground = new SolidColorBrush(Color.FromArgb(255, 0,0,0));    // Black
+                    Countdown.Foreground = new SolidColorBrush(Color.FromArgb(255, 0,0,0));    // Black
+                    break;
+                case 4:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 34,139,34));    // White
+                    break; 
+                case 5:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 96,96,96));//"{StaticResource ApplicationPageBackgroundThemeBrush}";   // default 
+                    break; 
+                default: break; 
+            }
+#endregion 
+             
         }
+        #endregion 
 
-
+        #region CreateClockTask
         private static async void CreateClockTask()
         {
             var result = await BackgroundExecutionManager.RequestAccessAsync();
@@ -188,7 +218,9 @@ namespace ChristmasCountdown
                 EnsureTimerTask();
             }
         }
+        #endregion 
 
+        #region EnsureUserPresentTask
         private static void EnsureUserPresentTask()
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
@@ -201,7 +233,9 @@ namespace ChristmasCountdown
             builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
             builder.Register();
         }
+#endregion 
 
+        #region EnsureTimerTask
         private static void EnsureTimerTask()
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
@@ -214,13 +248,16 @@ namespace ChristmasCountdown
             builder.SetTrigger(new TimeTrigger(180, false));
             builder.Register();
         }
+#endregion 
 
+        #region OnTick
         private void OnTick(object sender, object e)
         {
             var timeLeft = Christmas - DateTime.Now;
 
             Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
         }
+        #endregion 
 
         #region Start the snow fall
         private void StartFallingSnowAnimation()
@@ -233,7 +270,7 @@ namespace ChristmasCountdown
                 double y = Canvas.GetTop(localCopy);
                 double x = Canvas.GetLeft(localCopy);
 
-                double speed = 5 * random.NextDouble();
+                double speed = 7 * random.NextDouble();
                 double index = 0;
                 double radius = 30 * speed * random.NextDouble();
 
@@ -313,19 +350,5 @@ namespace ChristmasCountdown
         }
         #endregion
 
-        #region Change background color 
-        public void ChangeColor(int color)
-        {
-            switch (color)
-            {
-                case 0: break;
-                case 1: 
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 166));
-                    untilTxtBlock.Visibility = Visibility.Collapsed; 
-                    break; 
-                default: break; 
-            }
-        }
-        #endregion 
     }
 }

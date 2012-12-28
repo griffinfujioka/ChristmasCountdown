@@ -27,6 +27,7 @@ namespace ChristmasCountdown
             backgroundColorComboBox.SelectedIndex = 0; 
         }
 
+
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -50,22 +51,66 @@ namespace ChristmasCountdown
         {
         }
 
+        #region OnNavigatedTo
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (App.showAppBar)
+                showAppBarChkBox.IsChecked = true;
+            else
+                App.showAppBar = false; 
+            base.OnNavigatedTo(e);
+        }
+        #endregion 
+
+        #region OnLoaded
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            backgroundColorComboBox.SelectedIndex = 0; 
+            backgroundColorComboBox.SelectedIndex = 0;
+            
         }
+        #endregion 
 
+        #region backgroundColorComboBox Selection Changed 
         private void backgroundColorComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             MainPage mainpage = new MainPage(); 
             switch (backgroundColorComboBox.SelectedIndex)
             {
                 case 0: break;
-                case 1: 
-                    mainpage.ChangeColor(backgroundColorComboBox.SelectedIndex);
+                case 1:
+                    App.Background_Color = 1;   // 1 = black
+                    break; 
+                case 2:
+                    App.Background_Color = 2;   // 2 = red
+                    break; 
+                case 3:
+                    App.Background_Color = 3;   // 3 = white
+                    break; 
+                case 4:
+                    App.Background_Color = 4;   // 4 = green
+                    break; 
+                case 5:
+                    App.Background_Color = 5;   // Restore default 
                     break; 
                 default: break; 
             }
         }
+        #endregion 
+
+        #region showAppBar checkbox checked 
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            App.showAppBar = true;
+            showAppBarChkBox.IsChecked = true; 
+        }
+        #endregion 
+
+        #region showAppBar checkbox unchecked
+        private void CheckBox_Unchecked_1(object sender, RoutedEventArgs e)
+        {
+            App.showAppBar = false;
+            showAppBarChkBox.IsChecked = false;
+        }
+        #endregion 
     }
 }

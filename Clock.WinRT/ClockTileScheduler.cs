@@ -11,9 +11,10 @@ namespace Clock.WinRT
     using Windows.UI.Notifications;
 
     
-
+    
     public static class ClockTileScheduler
     {
+        static int Live_Tile_Style = 1;  // Used to change which live tile style is shown 
         public static void CreateSchedule()
         {
             int CurrentYear = DateTime.Now.Year;                // Current year

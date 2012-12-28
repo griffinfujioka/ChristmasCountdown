@@ -12,7 +12,7 @@
             <Grid>
                 <StackPanel x:Name="TopLeftPanel" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button x:Name="aboutBtn" Content="About" Margin="8,0,8,0" BorderThickness="0" Click="aboutBtn_Click_1" Foreground="White"/>
-                    <!--<Button x:Name="settingsBtn" Content="Settings" Margin="8,0,8,0" BorderThickness="0" Click="settingsBtn_Click_1" Foreground="White"/> -->
+                    <Button x:Name="settingsBtn" Content="Settings" Margin="8,0,8,0" BorderThickness="0" Click="settingsBtn_Click_1" Foreground="White"/> 
                 </StackPanel>
             </Grid>
         </AppBar>

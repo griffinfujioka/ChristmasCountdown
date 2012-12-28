@@ -26,7 +26,8 @@ namespace ChristmasCountdown
     sealed partial class App : Application
     {
         public static bool isChristmas;
-        public static int Live_Tile_Style = 1; 
+        public static int Background_Color;
+        public static bool showAppBar; 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -36,6 +37,7 @@ namespace ChristmasCountdown
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             isChristmas = false; 
+            
         }
 
         /// <summary>

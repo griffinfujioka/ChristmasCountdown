@@ -42,13 +42,31 @@
             </Grid.ColumnDefinitions>
         </Grid>
         
-        <ComboBox x:Name="backgroundColorComboBox" HorizontalAlignment="Left" Margin="40,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="238" SelectionChanged="backgroundColorComboBox_SelectionChanged_1">
+        <ComboBox x:Name="backgroundColorComboBox" HorizontalAlignment="Left" Margin="80,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="238" SelectionChanged="backgroundColorComboBox_SelectionChanged_1">
             <TextBlock Text="Background color"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Black" Margin="0,0,20,0"/>
+                <Image x:Name="BlackImage" Height="30" Width="30" Source="Assets/Black.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Red" Margin="0,0,20,0"/>
                 <Image x:Name="RedImage" Height="30" Width="30" Source="Assets/Red.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="White" Margin="0,0,20,0"/>
+                <Image x:Name="WhiteImage" Height="30" Width="30" Source="Assets/White.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Green" Margin="0,0,20,0"/>
+                <Image x:Name="GreenImage" Height="30" Width="30" Source="Assets/Green.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Restore Default" Margin="0,0,20,0"/>
+            </StackPanel>
         </ComboBox>
+        <CheckBox x:Name="showAppBarChkBox" Content="Show App Bar" HorizontalAlignment="Left" Margin="80,103,0,0" Grid.Row="1" VerticalAlignment="Top" Width="144" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked_1"/>
+
+
 
         <VisualStateManager.VisualStateGroups>
 
