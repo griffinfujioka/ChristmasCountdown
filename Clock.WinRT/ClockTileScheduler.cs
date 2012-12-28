@@ -15,6 +15,11 @@ namespace Clock.WinRT
     public static class ClockTileScheduler
     {
         static int Live_Tile_Style = 1;  // Used to change which live tile style is shown 
+
+        public static void SetLiveTileStyle(int style)
+        {
+            Live_Tile_Style = style; 
+        }
         public static void CreateSchedule()
         {
             int CurrentYear = DateTime.Now.Year;                // Current year
@@ -90,16 +95,25 @@ namespace Clock.WinRT
             {
                 tileXmlCountdown = string.Format(Christmas_xml);
             }
-            else
+            else if (Live_Tile_Style == 1)
             {
-                //tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
-
-                //tileXmlCountdown = string.Format(xml_2, timeLeft.Days.ToString() + " days,", timeLeft.Hours.ToString() + " hours", "until Christmas!");
-
-                tileXmlCountdown = string.Format(xml_3, timeLeft.Days.ToString() + " days,", timeLeft.Hours.ToString() + " hours", timeLeft.Minutes.ToString() + " minutes");
-            
-                
+                tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
             }
+            else if (Live_Tile_Style == 2)
+            {
+                tileXmlCountdown = string.Format(xml_2, timeLeft.Days.ToString() + " days,", timeLeft.Hours == 1 ? timeLeft.Hours.ToString() + " hour" : timeLeft.Hours.ToString() + " hours", "until Christmas!");
+            }
+            else if(Live_Tile_Style == 3)
+            {
+                tileXmlCountdown = string.Format(xml_3, timeLeft.Days.ToString() + " days,", timeLeft.Hours == 1 ? timeLeft.Hours.ToString() + " hour," : timeLeft.Hours.ToString() + " hours,", timeLeft.Minutes == 1 ? timeLeft.Minutes.ToString() + " minute" : timeLeft.Minutes.ToString() + " minutes");
+            }
+            else    // default to style 1 
+            {
+                tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
+            }
+
+                
+            
             XmlDocument documentNow = new XmlDocument();
             documentNow.LoadXml(tileXmlCountdown);
 
@@ -120,7 +134,22 @@ namespace Clock.WinRT
                     }
                     else
                     {
-                        tileXml = string.Format(xml_3, timeLeft.Days.ToString());
+                        if (Live_Tile_Style == 1)
+                        {
+                            tileXml = string.Format(xml, timeLeft.Days.ToString());
+                        }
+                        else if (Live_Tile_Style == 2)
+                        {
+                            tileXml = string.Format(xml_2, timeLeft.Days.ToString());
+                        }
+                        else if (Live_Tile_Style == 3)
+                        {
+                            tileXml = string.Format(xml_3, timeLeft.Days.ToString());
+                        }
+                        else    // default to style 1 
+                        {
+                            tileXml = string.Format(xml, timeLeft.Days.ToString());
+                        }
                     }
                     XmlDocument document = new XmlDocument();
                     document.LoadXml(tileXml);

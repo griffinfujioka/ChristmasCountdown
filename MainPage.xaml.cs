@@ -60,7 +60,33 @@ namespace ChristmasCountdown
             if (App.showAppBar)
                 TopAppBar.IsOpen = true;
             else
-                TopAppBar.IsOpen = false; 
+                TopAppBar.IsOpen = false;
+
+            #region Set page background using App.Background_Color
+            switch (App.Background_Color)
+            {
+                case 0: break;
+                case 1:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));    // Black
+                    break;
+                case 2:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 220, 20, 60));    // Red 
+                    break;
+                case 3:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 245, 245, 245));    // White
+                    untilTxtBlock.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));    // Black
+                    Countdown.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));    // Black
+                    break;
+                case 4:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 34, 139, 34));    // White
+                    break;
+                case 5:
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 96, 96, 96));//"{StaticResource ApplicationPageBackgroundThemeBrush}";   // default 
+                    break;
+                default: break;
+            }
+            #endregion 
+
             
         }
         #endregion 
@@ -177,30 +203,7 @@ namespace ChristmasCountdown
             }
             #endregion
 
-        #region Set page background using App.Background_Color
-            switch (App.Background_Color)
-            {
-                case 0: break;
-                case 1:
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 0,0,0));    // Black
-                    break;
-                case 2:
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 220, 20, 60));    // Red 
-                    break;
-                case 3:
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 245,245,245));    // White
-                    untilTxtBlock.Foreground = new SolidColorBrush(Color.FromArgb(255, 0,0,0));    // Black
-                    Countdown.Foreground = new SolidColorBrush(Color.FromArgb(255, 0,0,0));    // Black
-                    break;
-                case 4:
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 34,139,34));    // White
-                    break; 
-                case 5:
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 96,96,96));//"{StaticResource ApplicationPageBackgroundThemeBrush}";   // default 
-                    break; 
-                default: break; 
-            }
-#endregion 
+        
              
         }
         #endregion 

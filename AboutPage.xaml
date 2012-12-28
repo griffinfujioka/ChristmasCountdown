@@ -59,39 +59,17 @@
         <ScrollViewer Grid.Row="3" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
-                    <Image x:Name="baseConverterImage" Margin="22,40,22,40" Height="150" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
+                    <Image x:Name="baseConverterImage" Margin="22,40,22,40" Height="150" Width="150"  HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/EZBase.png"/>
                     <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">
-                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
-                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/GPA_Calc.png"/>
+                    <TextBlock Text="GPA Calculator" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical">
-                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
-                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
-                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
-                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
-                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <Image Height="150" Width="150" Margin="22,40,22,40" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Assets/SF ACM.jpeg"/>
-                    <TextBlock Text="EZ Base Converter" Margin="22,0,22,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
+                
             </StackPanel>
         </ScrollViewer>
         

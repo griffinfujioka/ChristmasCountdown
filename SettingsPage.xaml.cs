@@ -24,7 +24,8 @@ namespace ChristmasCountdown
         public SettingsPage()
         {
             this.InitializeComponent();
-            backgroundColorComboBox.SelectedIndex = 0; 
+            backgroundColorComboBox.SelectedIndex = 0;
+            tile_styleComboBox.SelectedIndex = 0; 
         }
 
 
@@ -73,7 +74,7 @@ namespace ChristmasCountdown
         #region backgroundColorComboBox Selection Changed 
         private void backgroundColorComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            MainPage mainpage = new MainPage(); 
+            
             switch (backgroundColorComboBox.SelectedIndex)
             {
                 case 0: break;
@@ -110,6 +111,28 @@ namespace ChristmasCountdown
         {
             App.showAppBar = false;
             showAppBarChkBox.IsChecked = false;
+        }
+        #endregion 
+
+        #region tile style combo box selection changed
+        private void tile_styleComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            switch (tile_styleComboBox.SelectedIndex)
+            {
+                case 0: break;
+                case 1:
+                    App.Live_Tile_Style = 1;  
+                    break;
+                case 2:
+                    App.Live_Tile_Style = 2;   
+                    break;
+                case 3:
+                    App.Live_Tile_Style = 3;  
+                    break;
+                default: break;
+            }
+
+            Clock.WinRT.ClockTileScheduler.SetLiveTileStyle(App.Live_Tile_Style); 
         }
         #endregion 
     }

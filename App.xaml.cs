@@ -27,7 +27,8 @@ namespace ChristmasCountdown
     {
         public static bool isChristmas;
         public static int Background_Color;
-        public static bool showAppBar; 
+        public static int Live_Tile_Style; 
+        public static bool showAppBar = true;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
