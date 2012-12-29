@@ -20,7 +20,8 @@ using Windows.UI.Xaml.Media.Animation;           // storyboard
 using Windows.UI;           // colors
 using Windows.Globalization.DateTimeFormatting; // datetime formatting
 using Windows.ApplicationModel.Background;      // background tasks 
-using Clock.WinRT; 
+using Clock.WinRT;
+using ChristmasCountdown.Common; 
 
 /*
  * I'm basically porting this app over from a Windows Phone 7 tutorial 
@@ -35,7 +36,7 @@ using Clock.WinRT;
 namespace ChristmasCountdown
 {
 
-    public partial class MainPage : Page
+    public partial class MainPage : Common.LayoutAwarePage
     {
         private const string TASKNAMEUSERPRESENT = "TileSchedulerTaskUserPresent";
         private const string TASKNAMETIMER = "TileSchedulerTaskTimer";
@@ -56,12 +57,12 @@ namespace ChristmasCountdown
              
             int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
             DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */
-
+            /*
             if (App.showAppBar)
                 TopAppBar.IsOpen = true;
             else
                 TopAppBar.IsOpen = false;
-
+            */ 
             #region Set page background using App.Background_Color
             switch (App.Background_Color)
             {
@@ -172,7 +173,7 @@ namespace ChristmasCountdown
             {
                 timer.Start();
                 //UpdateClockText();
-                CreateClockTask();
+                //CreateClockTask();
             }
             catch (Exception ex)
             {
@@ -209,7 +210,7 @@ namespace ChristmasCountdown
         #endregion 
 
         #region CreateClockTask
-        private static async void CreateClockTask()
+        public static async void CreateClockTask()
         {
             var result = await BackgroundExecutionManager.RequestAccessAsync();
             if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||

@@ -111,7 +111,6 @@ namespace Clock.WinRT
             {
                 tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
             }
-
                 
             
             XmlDocument documentNow = new XmlDocument();
@@ -140,15 +139,11 @@ namespace Clock.WinRT
                         }
                         else if (Live_Tile_Style == 2)
                         {
-                            tileXml = string.Format(xml_2, timeLeft.Days.ToString());
+                            tileXml = string.Format(xml_2, timeLeft.Days.ToString() + " days,", timeLeft.Hours == 1 ? timeLeft.Hours.ToString() + " hour" : timeLeft.Hours.ToString() + " hours", "until Christmas!");
                         }
                         else if (Live_Tile_Style == 3)
                         {
-                            tileXml = string.Format(xml_3, timeLeft.Days.ToString());
-                        }
-                        else    // default to style 1 
-                        {
-                            tileXml = string.Format(xml, timeLeft.Days.ToString());
+                            tileXml = string.Format(xml_3, timeLeft.Days.ToString() + " days,", timeLeft.Hours == 1 ? timeLeft.Hours.ToString() + " hour," : timeLeft.Hours.ToString() + " hours,", timeLeft.Minutes == 1 ? timeLeft.Minutes.ToString() + " minute" : timeLeft.Minutes.ToString() + " minutes");
                         }
                     }
                     XmlDocument document = new XmlDocument();

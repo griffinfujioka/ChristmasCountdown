@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Windows; 
 
 using ChristmasCountdown.Common;
 
@@ -91,6 +92,7 @@ namespace ChristmasCountdown
             }
             // Ensure the current window is active
             Window.Current.Activate();
+            MainPage.CreateClockTask(); 
         }
 
         /// <summary>
@@ -106,5 +108,6 @@ namespace ChristmasCountdown
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
     }
 }

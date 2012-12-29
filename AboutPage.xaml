@@ -51,11 +51,11 @@
             <HyperlinkButton Content="Windows Phone Geek: Falling Snow" HorizontalAlignment="Left" Height="59" Margin="11,0,205,0" NavigateUri="http://windowsphonegeek.com/articles/Implementing-Falling-Snow-animation-in-WP7"/>
         </StackPanel>
         
-        <!-- Row 2: Check out our other apps! -->
+        <!-- Row 2: Check out our other apps!
         <TextBlock Text="Check out our other apps!" Grid.Row="2" FontSize="36" FontFamily="Harlow Solid Italic" Margin="53,7,-28,331" Grid.RowSpan="2"/>
 
         
-        <!-- Row 3: Our other apps -->
+         Row 3: Our other apps 
         <ScrollViewer Grid.Row="3" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
@@ -71,7 +71,7 @@
 
                 
             </StackPanel>
-        </ScrollViewer>
+        </ScrollViewer>-->
         
             
         <VisualStateManager.VisualStateGroups>

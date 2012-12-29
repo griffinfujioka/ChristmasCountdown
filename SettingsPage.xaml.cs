@@ -55,10 +55,6 @@ namespace ChristmasCountdown
         #region OnNavigatedTo
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (App.showAppBar)
-                showAppBarChkBox.IsChecked = true;
-            else
-                App.showAppBar = false; 
             base.OnNavigatedTo(e);
         }
         #endregion 
@@ -98,22 +94,6 @@ namespace ChristmasCountdown
         }
         #endregion 
 
-        #region showAppBar checkbox checked 
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
-        {
-            App.showAppBar = true;
-            showAppBarChkBox.IsChecked = true; 
-        }
-        #endregion 
-
-        #region showAppBar checkbox unchecked
-        private void CheckBox_Unchecked_1(object sender, RoutedEventArgs e)
-        {
-            App.showAppBar = false;
-            showAppBarChkBox.IsChecked = false;
-        }
-        #endregion 
-
         #region tile style combo box selection changed
         private void tile_styleComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
@@ -132,7 +112,8 @@ namespace ChristmasCountdown
                 default: break;
             }
 
-            Clock.WinRT.ClockTileScheduler.SetLiveTileStyle(App.Live_Tile_Style); 
+            Clock.WinRT.ClockTileScheduler.SetLiveTileStyle(App.Live_Tile_Style);
+            MainPage.CreateClockTask(); 
         }
         #endregion 
     }
