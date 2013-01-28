@@ -13,7 +13,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using System.Windows; 
+using System.Windows;
+using Windows.UI.ApplicationSettings;
+using Windows.UI;
+using Callisto.Controls; 
 
 using ChristmasCountdown.Common;
 
@@ -78,6 +81,9 @@ namespace ChristmasCountdown
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+                // Settings
+                SettingsPane.GetForCurrentView().CommandsRequested += Settings_CommandsRequested;
             }
 
             if (rootFrame.Content == null)
@@ -93,6 +99,29 @@ namespace ChristmasCountdown
             // Ensure the current window is active
             Window.Current.Activate();
             MainPage.CreateClockTask(); 
+        }
+
+        /// <summary>
+        /// Define Settings Pages for the application once the OnCommandsRequested event is raised.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        void Settings_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+        {
+            Color _background = Color.FromArgb(255, 130, 45, 70);
+
+            // Add an About command
+            var skyDrive = new SettingsCommand("About", "About", (handler) =>
+            {
+                var settings = new SettingsFlyout();
+                settings.Content = new AboutPage();
+                settings.HeaderBrush = new SolidColorBrush(_background);
+                settings.Background = new SolidColorBrush(_background);
+                settings.HeaderText = "About";
+                settings.IsOpen = true;
+            });
+
+            args.Request.ApplicationCommands.Add(skyDrive);
         }
 
         /// <summary>

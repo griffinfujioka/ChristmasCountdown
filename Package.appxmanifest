@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="36726GriffinFujioka.ChristmasCountdownFree" Publisher="CN=7A2280AF-F3B0-499B-A221-E1F53BF165FF" Version="1.0.0.8" />
+  <Identity Name="36726GriffinFujioka.ChristmasCountdownDonate" Publisher="CN=7A2280AF-F3B0-499B-A221-E1F53BF165FF" Version="1.0.0.12" />
   <Properties>
-    <DisplayName>Christmas Countdown Free</DisplayName>
+    <DisplayName>Christmas Countdown Donate</DisplayName>
     <PublisherDisplayName>Griffin Fujioka</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -23,8 +23,8 @@
       <Extensions>
         <Extension Category="windows.backgroundTasks" EntryPoint="Clock.WinRT.TileSchedulerTask">
           <BackgroundTasks>
-            <Task Type="systemEvent" />
             <Task Type="timer" />
+            <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

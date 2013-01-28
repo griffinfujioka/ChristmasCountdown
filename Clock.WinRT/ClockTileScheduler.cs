@@ -145,6 +145,10 @@ namespace Clock.WinRT
                         {
                             tileXml = string.Format(xml_3, timeLeft.Days.ToString() + " days,", timeLeft.Hours == 1 ? timeLeft.Hours.ToString() + " hour," : timeLeft.Hours.ToString() + " hours,", timeLeft.Minutes == 1 ? timeLeft.Minutes.ToString() + " minute" : timeLeft.Minutes.ToString() + " minutes");
                         }
+                        else    // Added this part to fix a bug, don't delete it. 
+                        {
+                            tileXmlCountdown = string.Format(xml, timeLeft.Days.ToString());
+                        }
                     }
                     XmlDocument document = new XmlDocument();
                     document.LoadXml(tileXml);

@@ -57,12 +57,7 @@ namespace ChristmasCountdown
              
             int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
             DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */
-            /*
-            if (App.showAppBar)
-                TopAppBar.IsOpen = true;
-            else
-                TopAppBar.IsOpen = false;
-            */ 
+
             #region Set page background using App.Background_Color
             switch (App.Background_Color)
             {
@@ -82,7 +77,7 @@ namespace ChristmasCountdown
                     MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 34, 139, 34));    // White
                     break;
                 case 5:
-                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 96, 96, 96));//"{StaticResource ApplicationPageBackgroundThemeBrush}";   // default 
+                    MainPageGrid.Background = new SolidColorBrush(Color.FromArgb(255, 96, 96, 96));
                     break;
                 default: break;
             }
@@ -99,6 +94,15 @@ namespace ChristmasCountdown
             InitializeComponent();
 
             Loaded += OnLoaded;
+
+            var bounds = Window.Current.Bounds;
+            double height = bounds.Height;
+            double width = bounds.Width;
+
+            ContentPanel.Height = height;
+            ContentPanel.Width = width;
+            MainPageGrid.Height = height;
+            MainPageGrid.Width = width; 
 
 
             random = new Random();
@@ -212,15 +216,34 @@ namespace ChristmasCountdown
         #region CreateClockTask
         public static async void CreateClockTask()
         {
-            var result = await BackgroundExecutionManager.RequestAccessAsync();
-            if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
-                result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
+            try
             {
-                ClockTileScheduler.CreateSchedule();
 
-                EnsureUserPresentTask();
-                EnsureTimerTask();
+                var result = await BackgroundExecutionManager.RequestAccessAsync();
+                if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+                    result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
+                {
+                    foreach (var task in BackgroundTaskRegistration.AllTasks)
+                    {
+                        if (task.Value.Name == TASKNAMEUSERPRESENT)
+                            task.Value.Unregister(true);
+                    }
+                    ClockTileScheduler.CreateSchedule();
+
+                    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+                    builder.Name = TASKNAMEUSERPRESENT;
+                    builder.TaskEntryPoint = TASKENTRYPOINT;
+                    builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+                    builder.Register();
+                    var registration = builder.Register();
+                }
             }
+            catch
+            {
+
+            }
+            
+            
         }
         #endregion 
 
@@ -337,13 +360,6 @@ namespace ChristmasCountdown
             result.Children.Add(animationLeft);
 
             return result;
-        }
-        #endregion 
-
-        #region About button clicked
-        private void aboutBtn_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(AboutPage)); 
         }
         #endregion 
 

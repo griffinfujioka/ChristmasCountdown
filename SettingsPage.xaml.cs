@@ -62,7 +62,7 @@ namespace ChristmasCountdown
         #region OnLoaded
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            backgroundColorComboBox.SelectedIndex = 0;
+           
             
         }
         #endregion 

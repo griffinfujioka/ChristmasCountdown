@@ -35,7 +35,7 @@
         </Canvas>
         <StackPanel Orientation="Horizontal" Width="Auto" Height="150" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button x:Name="settingsBtn" Margin="8,0,8,0" BorderThickness="0" Style="{StaticResource SettingsAppBarButtonStyle}" Click="settingsBtn_Click_1" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-            <Button x:Name="aboutBtn" Margin="8,0,8,0" BorderThickness="0" Style="{StaticResource HelpAppBarButtonStyle}" Click="aboutBtn_Click_1" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            
         </StackPanel>
 
         <VisualStateManager.VisualStateGroups>
