@@ -24,11 +24,12 @@ namespace ChristmasCountdown
         public SettingsPage()
         {
             this.InitializeComponent();
+            tile_styleComboBox.SelectedIndex = 0; 
         }
 
 
         #region tile style combo box selection changed
-        private async void tile_styleComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void tile_styleComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             switch (tile_styleComboBox.SelectedIndex)
             {
@@ -44,8 +45,6 @@ namespace ChristmasCountdown
                 default: break;
             }
 
-           //Clock.WinRT.ClockTileScheduler.SetLiveTileStyle(App.Live_Tile_Style);
-            //MainPage.CreateClockTask(); 
         }
         #endregion 
     }

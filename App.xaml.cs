@@ -108,7 +108,7 @@ namespace ChristmasCountdown
         /// <param name="args"></param>
         void Settings_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
-            Color _background = Color.FromArgb(255, 130, 45, 70);
+            Color _background = Color.FromArgb(255, 178, 34,34);
 
             // Add an About command
             var About = new SettingsCommand("About", "About", (handler) =>

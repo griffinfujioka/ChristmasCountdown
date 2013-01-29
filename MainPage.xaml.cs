@@ -46,6 +46,13 @@ namespace ChristmasCountdown
         private DispatcherTimer timer;
         private static Random random;
 
+        #region On Navigated From 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            CreateClockTask();
+        }
+        #endregion 
         #region On Navigated To
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
@@ -93,7 +100,7 @@ namespace ChristmasCountdown
         {
             InitializeComponent();
 
-            Loaded += OnLoaded;
+            
 
             var bounds = Window.Current.Bounds;
             double height = bounds.Height;
@@ -156,6 +163,8 @@ namespace ChristmasCountdown
             int days = ts.Days;
             int hours = ts.Hours;
             //diffTxtBlock.Text = days + " days " + hours + "hours"; 
+
+            Loaded += OnLoaded;
         }
         #endregion
 
@@ -229,6 +238,8 @@ namespace ChristmasCountdown
                             task.Value.Unregister(true);
                     }
                     ClockTileScheduler.CreateSchedule();
+                    EnsureUserPresentTask();
+                    EnsureTimerTask();
 
                     BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
                     builder.Name = TASKNAMEUSERPRESENT;
