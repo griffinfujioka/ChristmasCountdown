@@ -54,8 +54,8 @@ namespace ChristmasCountdown
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-             
-            int CurrentYear = DateTime.Now.Year;                /* Get Current Year */ 
+
+            int CurrentYear = DateTime.Now.Year;                /* Get Current Year */
             DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */
 
             #region Set page background using App.Background_Color
@@ -81,12 +81,12 @@ namespace ChristmasCountdown
                     break;
                 default: break;
             }
-            #endregion 
+            #endregion
 
-            
+
         }
-        #endregion 
-        
+        #endregion
+
         #region Constructor
         // Constructor
         public MainPage()
@@ -102,7 +102,7 @@ namespace ChristmasCountdown
             ContentPanel.Height = height;
             ContentPanel.Width = width;
             MainPageGrid.Height = height;
-            MainPageGrid.Width = width; 
+            MainPageGrid.Width = width;
 
 
             random = new Random();
@@ -151,20 +151,20 @@ namespace ChristmasCountdown
             // Display the results
             //this.todaysDateTxtBlock.Text = results.ToString();
 
-            
+
             TimeSpan ts = Christmas - DateTime.Now;
             int days = ts.Days;
             int hours = ts.Hours;
             //diffTxtBlock.Text = days + " days " + hours + "hours"; 
         }
-        #endregion 
-       
+        #endregion
+
         #region OnLoaded
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             DateTime TestDate = new DateTime(DateTime.Now.Year, 11, 15);
             int CurrentYear = DateTime.Now.Year;                /* Get Current Year */
-            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */ 
+            DateTime NewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);       /* January 1st of the next year */
 
             timer = new DispatcherTimer
             {
@@ -182,10 +182,10 @@ namespace ChristmasCountdown
             catch (Exception ex)
             {
 
-            } 
+            }
 
             // If today is Christmas, behave accordingly!! 
-        #region Display pop up a message if it's Christmas day
+            #region Display pop up a message if it's Christmas day
             if (DateTime.Now.Date == Christmas.Date)
             {
                 App.isChristmas = true;
@@ -195,7 +195,7 @@ namespace ChristmasCountdown
                 #endregion
                 // Print out a Merry Christmas message instead
                 merryChristmasTxtBlock.Visibility = Visibility.Visible;
-                treeImg.Visibility = Visibility.Visible; 
+                treeImg.Visibility = Visibility.Visible;
                 CurrentYear = DateTime.Now.Year;
                 Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("Merry Christmas and Happy Holidays!\n\nThank you for your support!");
                 await dialog.ShowAsync();
@@ -208,10 +208,10 @@ namespace ChristmasCountdown
             }
             #endregion
 
-        
-             
+
+
         }
-        #endregion 
+        #endregion
 
         #region CreateClockTask
         public static async void CreateClockTask()
@@ -242,10 +242,10 @@ namespace ChristmasCountdown
             {
 
             }
-            
-            
+
+
         }
-        #endregion 
+        #endregion
 
         #region EnsureUserPresentTask
         private static void EnsureUserPresentTask()
@@ -260,7 +260,7 @@ namespace ChristmasCountdown
             builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
             builder.Register();
         }
-#endregion 
+        #endregion
 
         #region EnsureTimerTask
         private static void EnsureTimerTask()
@@ -275,16 +275,16 @@ namespace ChristmasCountdown
             builder.SetTrigger(new TimeTrigger(180, false));
             builder.Register();
         }
-#endregion 
+        #endregion
 
         #region OnTick
         private void OnTick(object sender, object e)
         {
             var timeLeft = Christmas - DateTime.Now;
 
-            Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds); 
+            Countdown.Text = string.Format("{0:D2} days\n{1:D2} hours\n{2:D2} minutes\n{3:D2} seconds", timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds);
         }
-        #endregion 
+        #endregion
 
         #region Start the snow fall
         private void StartFallingSnowAnimation()
@@ -326,7 +326,7 @@ namespace ChristmasCountdown
                 };
             }
         }
-        #endregion 
+        #endregion
 
         #region Generate an Ellipse
         private Ellipse GenerateEllipse()
@@ -338,7 +338,7 @@ namespace ChristmasCountdown
             this.ContentPanel.Children.Add(element);
             return element;
         }
-        #endregion 
+        #endregion
 
         #region Create storyboard
         private Storyboard CreateStoryboard(UIElement element, double to, double toLeft)
@@ -353,7 +353,7 @@ namespace ChristmasCountdown
             DoubleAnimation animationLeft = new DoubleAnimation();
             animationLeft.To = toLeft;
             //Storyboard.SetTargetProperty(animationLeft, new PropertyPath("(Canvas.Left)"));
-            Storyboard.SetTargetProperty(animationLeft, "(Canvas.Left)"); 
+            Storyboard.SetTargetProperty(animationLeft, "(Canvas.Left)");
             Storyboard.SetTarget(animationLeft, element);
 
             result.Children.Add(animation);
@@ -361,14 +361,6 @@ namespace ChristmasCountdown
 
             return result;
         }
-        #endregion 
-
-        #region Settings button clicked
-        private void settingsBtn_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(SettingsPage));
-        }
         #endregion
-
     }
 }

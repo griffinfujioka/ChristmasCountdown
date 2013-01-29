@@ -9,6 +9,7 @@ namespace Clock.WinRT
     using Windows.Data.Xml.Dom;
     using Windows.System.UserProfile;
     using Windows.UI.Notifications;
+    using System.Threading.Tasks;
 
     
     
@@ -18,7 +19,7 @@ namespace Clock.WinRT
 
         public static void SetLiveTileStyle(int style)
         {
-            Live_Tile_Style = style; 
+            Live_Tile_Style = style;
         }
         public static void CreateSchedule()
         {

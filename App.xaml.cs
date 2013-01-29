@@ -111,7 +111,7 @@ namespace ChristmasCountdown
             Color _background = Color.FromArgb(255, 130, 45, 70);
 
             // Add an About command
-            var skyDrive = new SettingsCommand("About", "About", (handler) =>
+            var About = new SettingsCommand("About", "About", (handler) =>
             {
                 var settings = new SettingsFlyout();
                 settings.Content = new AboutPage();
@@ -121,7 +121,20 @@ namespace ChristmasCountdown
                 settings.IsOpen = true;
             });
 
-            args.Request.ApplicationCommands.Add(skyDrive);
+            var Settings = new SettingsCommand("Settings", "Settings", (handler) =>
+                {
+                    var settings = new SettingsFlyout();
+                    settings.Content = new SettingsPage();
+                    settings.HeaderBrush = new SolidColorBrush(_background);
+                    settings.Background = new SolidColorBrush(_background);
+                    settings.HeaderText = "Settings";
+                    settings.IsOpen = true; 
+                });
+
+
+
+            args.Request.ApplicationCommands.Add(About);
+            args.Request.ApplicationCommands.Add(Settings); 
         }
 
         /// <summary>
