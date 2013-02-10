@@ -16,8 +16,10 @@ using Windows.UI.Xaml.Navigation;
 using System.Windows;
 using Windows.UI.ApplicationSettings;
 using Windows.UI;
-using Callisto.Controls; 
-
+using Callisto.Controls;
+using Windows.UI.Notifications;         // Tiles 
+using NotificationsExtensions;
+using NotificationsExtensions.TileContent;
 using ChristmasCountdown.Common;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -98,7 +100,6 @@ namespace ChristmasCountdown
             }
             // Ensure the current window is active
             Window.Current.Activate();
-            MainPage.CreateClockTask(); 
         }
 
         /// <summary>

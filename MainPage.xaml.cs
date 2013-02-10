@@ -21,7 +21,11 @@ using Windows.UI;           // colors
 using Windows.Globalization.DateTimeFormatting; // datetime formatting
 using Windows.ApplicationModel.Background;      // background tasks 
 using Clock.WinRT;
-using ChristmasCountdown.Common; 
+using ChristmasCountdown.Common;
+using Windows.UI.Notifications;         // Tiles 
+using NotificationsExtensions;
+using NotificationsExtensions.TileContent;
+using Windows.Storage; 
 
 /*
  * I'm basically porting this app over from a Windows Phone 7 tutorial 
@@ -38,21 +42,104 @@ namespace ChristmasCountdown
 
     public partial class MainPage : Common.LayoutAwarePage
     {
+        #region Variable declarations
         private const string TASKNAMEUSERPRESENT = "TileSchedulerTaskUserPresent";
         private const string TASKNAMETIMER = "TileSchedulerTaskTimer";
         private const string TASKENTRYPOINT = "Clock.WinRT.TileSchedulerTask";
+        private const String LiveTileStyle = "LiveTileStyle"; 
         public static DateTime Christmas = new DateTime(DateTime.Today.Year, 12, 25);
-
+        private Windows.Foundation.Collections.IPropertySet appSettings;
         private DispatcherTimer timer;
         private static Random random;
+        #endregion
 
-        #region On Navigated From 
+        #region On Navigated From
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            TimeSpan ts = Christmas - DateTime.Now;
+            int days = ts.Days;
+            int hours = ts.Hours;
+            int minutes = ts.Minutes; 
+
+            // Setup live tile 
+            // Check to see if tile updating is enabled
+            var tile = TileUpdateManager.CreateTileUpdaterForApplication();
+            if (tile.Setting != NotificationSetting.Enabled)
+                return;
+
+            App.Live_Tile_Style = Convert.ToInt32(appSettings["LiveTileStyle"]); 
+
+            switch (App.Live_Tile_Style)
+            {
+
+                case 0:
+                    var tilecontent = TileContentFactory.CreateTileWideText01();
+                    tilecontent.TextHeading.Text = days.ToString() + " days";
+                    tilecontent.TextBody1.Text = "until Christmas!"; 
+                    ITileSquareText01 squarecontent = TileContentFactory.CreateTileSquareText01(); 
+                    squarecontent.TextBody1.Text = days + " days";
+                    squarecontent.TextBody2.Text = "until Christmas!";
+                    tilecontent.SquareContent = squarecontent; 
+                    ScheduledTileNotification scheduledTile = new ScheduledTileNotification(tilecontent.GetXml(), DateTime.Now.AddSeconds(10));
+                    var tileupdater = TileUpdateManager.CreateTileUpdaterForApplication();
+                    tileupdater.EnableNotificationQueue(true);
+                    tileupdater.AddToSchedule(scheduledTile); 
+                    break;
+                case 1:
+                    var tilecontent2 = TileContentFactory.CreateTileWideText05();
+                    tilecontent2.TextBody1.Text = days.ToString() + " days";
+                    tilecontent2.TextBody2.Text = hours.ToString() + " hours"; 
+                    tilecontent2.TextBody3.Text = "until Christmas!";
+                    ITileSquareText01 squarecontent2 = TileContentFactory.CreateTileSquareText01(); 
+                    squarecontent2.TextHeading.Text = days.ToString() + " days";
+                    squarecontent2.TextBody1.Text = hours.ToString() + " hours"; 
+                    squarecontent2.TextBody2.Text = "until Christmas!";
+                    
+                    tilecontent2.SquareContent = squarecontent2; 
+                    ScheduledTileNotification scheduledTile2 = new ScheduledTileNotification(tilecontent2.GetXml(), DateTime.Now.AddSeconds(10));
+                    var tileupdater2 = TileUpdateManager.CreateTileUpdaterForApplication();
+                    tileupdater2.EnableNotificationQueue(true);
+                    tileupdater2.AddToSchedule(scheduledTile2); 
+                    break;
+                case 2:
+                    var tilecontent3 = TileContentFactory.CreateTileWideText05();
+                    tilecontent3.TextBody1.Text = days.ToString() + " days";
+                    tilecontent3.TextBody2.Text = hours.ToString() + " hours";
+                    tilecontent3.TextBody3.Text = minutes.ToString() + " minutes";
+                    tilecontent3.TextBody4.Text = "until Christmas!";
+                    ITileSquareText01 squarecontent3 = TileContentFactory.CreateTileSquareText01();
+                    squarecontent3.TextHeading.Text = days.ToString() + " days";
+                    squarecontent3.TextBody1.Text = hours.ToString() + " hours";
+                    squarecontent3.TextBody2.Text = minutes.ToString() + " minutes";
+                    squarecontent3.TextBody3.Text = "until Christmas!";
+
+                    tilecontent3.SquareContent = squarecontent3; 
+                    ScheduledTileNotification scheduledTile3 = new ScheduledTileNotification(tilecontent3.GetXml(), DateTime.Now.AddSeconds(10));
+                    var tileupdater3 = TileUpdateManager.CreateTileUpdaterForApplication();
+                    tileupdater3.EnableNotificationQueue(true);
+                    tileupdater3.AddToSchedule(scheduledTile3); 
+                    break;
+                default:
+                    var tilecontent1 = TileContentFactory.CreateTileWideText01();
+                    tilecontent1.TextHeading.Text = days.ToString() + " days";
+                    tilecontent1.TextBody1.Text = "until Christmas!"; 
+                    ITileSquareText01 squarecontent1 = TileContentFactory.CreateTileSquareText01(); 
+                    squarecontent1.TextBody1.Text = days + " days";
+                    squarecontent1.TextBody2.Text = "until Christmas!";
+                    tilecontent1.SquareContent = squarecontent1; 
+                    ScheduledTileNotification scheduledTile1 = new ScheduledTileNotification(tilecontent1.GetXml(), DateTime.Now.AddSeconds(10));
+                    var tileupdater1 = TileUpdateManager.CreateTileUpdaterForApplication();
+                    tileupdater1.EnableNotificationQueue(true);
+                    tileupdater1.AddToSchedule(scheduledTile1); 
+                    break;
+            }
+
             base.OnNavigatedFrom(e);
-            CreateClockTask();
+
+            //CreateClockTask();
         }
         #endregion 
+
         #region On Navigated To
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
@@ -98,10 +185,20 @@ namespace ChristmasCountdown
         // Constructor
         public MainPage()
         {
+            appSettings = ApplicationData.Current.LocalSettings.Values;
+
             InitializeComponent();
 
-            
+            #region  Setup the background task
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            builder.Name = TASKNAMEUSERPRESENT;
+            builder.TaskEntryPoint = TASKENTRYPOINT;
+            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+            builder.Register();
+            var registration = builder.Register();
+            #endregion 
 
+            #region Setup the screen resolution
             var bounds = Window.Current.Bounds;
             double height = bounds.Height;
             double width = bounds.Width;
@@ -110,50 +207,51 @@ namespace ChristmasCountdown
             ContentPanel.Width = width;
             MainPageGrid.Height = height;
             MainPageGrid.Width = width;
+            #endregion 
 
 
             random = new Random();
             this.StartFallingSnowAnimation();
 
             // We keep results in this variable
-            StringBuilder results = new StringBuilder();
-            results.AppendLine();
+            //StringBuilder results = new StringBuilder();
+            //results.AppendLine();
 
-            // Create basic date/time formatters.
-            DateTimeFormatter[] basicFormatters = new[]
-            {
-                // Default date formatters
-                new DateTimeFormatter("shortdate"),
-                new DateTimeFormatter("longdate"),
+            //// Create basic date/time formatters.
+            //DateTimeFormatter[] basicFormatters = new[]
+            //{
+            //    // Default date formatters
+            //    new DateTimeFormatter("shortdate"),
+            //    new DateTimeFormatter("longdate"),
 
-                // Default time formatters
-                new DateTimeFormatter("shorttime"),
-                new DateTimeFormatter("longtime"),
-             };
+            //    // Default time formatters
+            //    new DateTimeFormatter("shorttime"),
+            //    new DateTimeFormatter("longtime"),
+            // };
 
-            // Create date/time to format, manipulate and display.
-            DateTime dateTime = DateTime.Now;
-            // Try to format and display date/time if calendar supports it.
-            foreach (DateTimeFormatter formatter in basicFormatters)
-            {
-                try
-                {
-                    // Format and display date/time.
-                    results.AppendLine(formatter.Template + ": " + formatter.Format(dateTime));
-                }
-                catch (ArgumentException)
-                {
-                    // Retrieve and display formatter properties. 
-                    results.AppendLine(String.Format(
-                        "Unable to format Gregorian DateTime {0} using formatter with template {1} for languages [{2}], region {3}, calendar {4} and clock {5}",
-                        dateTime,
-                        formatter.Template,
-                        string.Join(",", formatter.Languages),
-                        formatter.GeographicRegion,
-                        formatter.Calendar,
-                        formatter.Clock));
-                }
-            }
+            //// Create date/time to format, manipulate and display.
+            //DateTime dateTime = DateTime.Now;
+            //// Try to format and display date/time if calendar supports it.
+            //foreach (DateTimeFormatter formatter in basicFormatters)
+            //{
+            //    try
+            //    {
+            //        // Format and display date/time.
+            //        results.AppendLine(formatter.Template + ": " + formatter.Format(dateTime));
+            //    }
+            //    catch (ArgumentException)
+            //    {
+            //        // Retrieve and display formatter properties. 
+            //        results.AppendLine(String.Format(
+            //            "Unable to format Gregorian DateTime {0} using formatter with template {1} for languages [{2}], region {3}, calendar {4} and clock {5}",
+            //            dateTime,
+            //            formatter.Template,
+            //            string.Join(",", formatter.Languages),
+            //            formatter.GeographicRegion,
+            //            formatter.Calendar,
+            //            formatter.Clock));
+            //    }
+            //}
 
             // Display the results
             //this.todaysDateTxtBlock.Text = results.ToString();
@@ -185,12 +283,9 @@ namespace ChristmasCountdown
             try
             {
                 timer.Start();
-                //UpdateClockText();
-                //CreateClockTask();
             }
-            catch (Exception ex)
+            catch
             {
-
             }
 
             // If today is Christmas, behave accordingly!! 
@@ -222,71 +317,71 @@ namespace ChristmasCountdown
         }
         #endregion
 
-        #region CreateClockTask
-        public static async void CreateClockTask()
-        {
-            try
-            {
+        //#region CreateClockTask
+        //public static async void CreateClockTask()
+        //{
+        //    try
+        //    {
 
-                var result = await BackgroundExecutionManager.RequestAccessAsync();
-                if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
-                    result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
-                {
-                    foreach (var task in BackgroundTaskRegistration.AllTasks)
-                    {
-                        if (task.Value.Name == TASKNAMEUSERPRESENT)
-                            task.Value.Unregister(true);
-                    }
-                    ClockTileScheduler.CreateSchedule();
-                    EnsureUserPresentTask();
-                    EnsureTimerTask();
+        //        var result = await BackgroundExecutionManager.RequestAccessAsync();
+        //        if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+        //            result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
+        //        {
+        //            foreach (var task in BackgroundTaskRegistration.AllTasks)
+        //            {
+        //                if (task.Value.Name == TASKNAMEUSERPRESENT)
+        //                    task.Value.Unregister(true);
+        //            }
+        //            ClockTileScheduler.CreateSchedule();
+        //            EnsureUserPresentTask();
+        //            EnsureTimerTask();
 
-                    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-                    builder.Name = TASKNAMEUSERPRESENT;
-                    builder.TaskEntryPoint = TASKENTRYPOINT;
-                    builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
-                    builder.Register();
-                    var registration = builder.Register();
-                }
-            }
-            catch
-            {
+        //            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+        //            builder.Name = TASKNAMEUSERPRESENT;
+        //            builder.TaskEntryPoint = TASKENTRYPOINT;
+        //            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+        //            builder.Register();
+        //            var registration = builder.Register();
+        //        }
+        //    }
+        //    catch
+        //    {
 
-            }
+        //    }
 
 
-        }
-        #endregion
+        //}
+        //#endregion
 
-        #region EnsureUserPresentTask
-        private static void EnsureUserPresentTask()
-        {
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-                if (task.Value.Name == TASKNAMEUSERPRESENT)
-                    return;
+        //#region EnsureUserPresentTask
+        //private static void EnsureUserPresentTask()
+        //{
+        //    foreach (var task in BackgroundTaskRegistration.AllTasks)
+        //        if (task.Value.Name == TASKNAMEUSERPRESENT)
+        //            return;
 
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-            builder.Name = TASKNAMETIMER;
-            builder.TaskEntryPoint = TASKENTRYPOINT;
-            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
-            builder.Register();
-        }
-        #endregion
+        //    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+        //    builder.Name = TASKNAMETIMER;
+        //    builder.TaskEntryPoint = TASKENTRYPOINT;
+        //    builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+        //    builder.Register();
+        //}
+        //#endregion
 
-        #region EnsureTimerTask
-        private static void EnsureTimerTask()
-        {
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-                if (task.Value.Name == TASKNAMETIMER)
-                    return;
+        //#region EnsureTimerTask
+        //private static void EnsureTimerTask()
+        //{
+        //    foreach (var task in BackgroundTaskRegistration.AllTasks)
+        //        if (task.Value.Name == TASKNAMETIMER)
+        //            return;
 
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-            builder.Name = TASKNAMETIMER;
-            builder.TaskEntryPoint = TASKENTRYPOINT;
-            builder.SetTrigger(new TimeTrigger(180, false));
-            builder.Register();
-        }
-        #endregion
+        //    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+        //    builder.Name = TASKNAMETIMER;
+        //    builder.TaskEntryPoint = TASKENTRYPOINT;
+        //    builder.SetTrigger(new TimeTrigger(180, false));
+        //    builder.Register();
+        //}
+        //#endregion
 
         #region OnTick
         private void OnTick(object sender, object e)
@@ -308,7 +403,7 @@ namespace ChristmasCountdown
                 double y = Canvas.GetTop(localCopy);
                 double x = Canvas.GetLeft(localCopy);
 
-                double speed = 7 * random.NextDouble();
+                double speed = 5 * random.NextDouble();
                 double index = 0;
                 double radius = 30 * speed * random.NextDouble();
 

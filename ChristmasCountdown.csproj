@@ -118,6 +118,7 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Helpers\TileHelpers.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -224,6 +225,10 @@
     <ProjectReference Include="Clock.WinRT\Clock.WinRT.csproj">
       <Project>{846f7825-d5d0-40ac-8f44-f7b3656d4f0a}</Project>
       <Name>Clock.WinRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="NotificationsExtensions\NotificationsExtensions.csproj">
+      <Project>{6e87464b-b064-40ca-8161-7c18c337adff}</Project>
+      <Name>NotificationsExtensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
