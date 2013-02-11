@@ -67,7 +67,7 @@ namespace ChristmasCountdown
             if (tile.Setting != NotificationSetting.Enabled)
                 return;
 
-            App.Live_Tile_Style = Convert.ToInt32(appSettings["LiveTileStyle"]); 
+            App.Live_Tile_Style = 0; // Convert.ToInt32(appSettings["LiveTileStyle"]); 
 
             switch (App.Live_Tile_Style)
             {
@@ -77,8 +77,8 @@ namespace ChristmasCountdown
                     tilecontent.TextHeading.Text = days.ToString() + " days";
                     tilecontent.TextBody1.Text = "until Christmas!"; 
                     ITileSquareText01 squarecontent = TileContentFactory.CreateTileSquareText01(); 
-                    squarecontent.TextBody1.Text = days + " days";
-                    squarecontent.TextBody2.Text = "until Christmas!";
+                    squarecontent.TextHeading.Text = days + " days";
+                    squarecontent.TextBody1.Text = "until Christmas!";
                     tilecontent.SquareContent = squarecontent; 
                     ScheduledTileNotification scheduledTile = new ScheduledTileNotification(tilecontent.GetXml(), DateTime.Now.AddSeconds(10));
                     var tileupdater = TileUpdateManager.CreateTileUpdaterForApplication();
@@ -124,8 +124,8 @@ namespace ChristmasCountdown
                     tilecontent1.TextHeading.Text = days.ToString() + " days";
                     tilecontent1.TextBody1.Text = "until Christmas!"; 
                     ITileSquareText01 squarecontent1 = TileContentFactory.CreateTileSquareText01(); 
-                    squarecontent1.TextBody1.Text = days + " days";
-                    squarecontent1.TextBody2.Text = "until Christmas!";
+                    squarecontent1.TextHeading.Text = days + " days";
+                    squarecontent1.TextBody1.Text = "until Christmas!";
                     tilecontent1.SquareContent = squarecontent1; 
                     ScheduledTileNotification scheduledTile1 = new ScheduledTileNotification(tilecontent1.GetXml(), DateTime.Now.AddSeconds(10));
                     var tileupdater1 = TileUpdateManager.CreateTileUpdaterForApplication();
@@ -136,7 +136,7 @@ namespace ChristmasCountdown
 
             base.OnNavigatedFrom(e);
 
-            //CreateClockTask();
+            CreateClockTask();
         }
         #endregion 
 
@@ -317,71 +317,71 @@ namespace ChristmasCountdown
         }
         #endregion
 
-        //#region CreateClockTask
-        //public static async void CreateClockTask()
-        //{
-        //    try
-        //    {
+        #region CreateClockTask
+        public static async void CreateClockTask()
+        {
+            try
+            {
 
-        //        var result = await BackgroundExecutionManager.RequestAccessAsync();
-        //        if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
-        //            result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
-        //        {
-        //            foreach (var task in BackgroundTaskRegistration.AllTasks)
-        //            {
-        //                if (task.Value.Name == TASKNAMEUSERPRESENT)
-        //                    task.Value.Unregister(true);
-        //            }
-        //            ClockTileScheduler.CreateSchedule();
-        //            EnsureUserPresentTask();
-        //            EnsureTimerTask();
+                var result = await BackgroundExecutionManager.RequestAccessAsync();
+                if (result == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+                    result == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
+                {
+                    foreach (var task in BackgroundTaskRegistration.AllTasks)
+                    {
+                        if (task.Value.Name == TASKNAMEUSERPRESENT)
+                            task.Value.Unregister(true);
+                    }
+                    ClockTileScheduler.CreateSchedule();
+                    EnsureUserPresentTask();
+                    EnsureTimerTask();
 
-        //            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-        //            builder.Name = TASKNAMEUSERPRESENT;
-        //            builder.TaskEntryPoint = TASKENTRYPOINT;
-        //            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
-        //            builder.Register();
-        //            var registration = builder.Register();
-        //        }
-        //    }
-        //    catch
-        //    {
+                    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+                    builder.Name = TASKNAMEUSERPRESENT;
+                    builder.TaskEntryPoint = TASKENTRYPOINT;
+                    builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+                    builder.Register();
+                    var registration = builder.Register();
+                }
+            }
+            catch
+            {
 
-        //    }
+            }
 
 
-        //}
-        //#endregion
+        }
+        #endregion
 
-        //#region EnsureUserPresentTask
-        //private static void EnsureUserPresentTask()
-        //{
-        //    foreach (var task in BackgroundTaskRegistration.AllTasks)
-        //        if (task.Value.Name == TASKNAMEUSERPRESENT)
-        //            return;
+        #region EnsureUserPresentTask
+        private static void EnsureUserPresentTask()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+                if (task.Value.Name == TASKNAMEUSERPRESENT)
+                    return;
 
-        //    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-        //    builder.Name = TASKNAMETIMER;
-        //    builder.TaskEntryPoint = TASKENTRYPOINT;
-        //    builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
-        //    builder.Register();
-        //}
-        //#endregion
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            builder.Name = TASKNAMETIMER;
+            builder.TaskEntryPoint = TASKENTRYPOINT;
+            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+            builder.Register();
+        }
+        #endregion
 
-        //#region EnsureTimerTask
-        //private static void EnsureTimerTask()
-        //{
-        //    foreach (var task in BackgroundTaskRegistration.AllTasks)
-        //        if (task.Value.Name == TASKNAMETIMER)
-        //            return;
+        #region EnsureTimerTask
+        private static void EnsureTimerTask()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+                if (task.Value.Name == TASKNAMETIMER)
+                    return;
 
-        //    BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-        //    builder.Name = TASKNAMETIMER;
-        //    builder.TaskEntryPoint = TASKENTRYPOINT;
-        //    builder.SetTrigger(new TimeTrigger(180, false));
-        //    builder.Register();
-        //}
-        //#endregion
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            builder.Name = TASKNAMETIMER;
+            builder.TaskEntryPoint = TASKENTRYPOINT;
+            builder.SetTrigger(new TimeTrigger(180, false));
+            builder.Register();
+        }
+        #endregion
 
         #region OnTick
         private void OnTick(object sender, object e)

@@ -135,7 +135,7 @@ namespace ChristmasCountdown
 
 
             args.Request.ApplicationCommands.Add(About);
-            args.Request.ApplicationCommands.Add(Settings); 
+            //args.Request.ApplicationCommands.Add(Settings); 
         }
 
         /// <summary>

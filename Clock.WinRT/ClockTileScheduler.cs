@@ -50,7 +50,7 @@ namespace Clock.WinRT
 
             // Tile 1: XX days until Christmas!
             const string xml = @"<tile><visual>
-                                        <binding template=""TileSquareBlock""><text id=""1"">{0}</text><text id=""2"">days left!</text></binding>
+                                        <binding template=""TileSquareText01""><text id=""1"">{0} days</text><text id=""2"">until Christmas!</text></binding>
                                         <binding template=""TileWideText01""><text id=""1"">{0}</text><text id=""2"">days until Christmas!</text></binding>
                                 </visual></tile>";
 
